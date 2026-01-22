@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# Build output (React frontend)
+/build
+/dist
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
