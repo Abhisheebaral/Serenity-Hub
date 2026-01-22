@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.navbar {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10%; 
+  background: #0b4ec3;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.8s ease-out;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  margin-left: 20px; 
+}
+
+.navBrandTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 20px;          
+  margin: 0;
+  padding-right: 20px; 
+}
+
+.navLinks li {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  padding: 0 5px;   
+}
+
+.navLinks li:hover {
+  opacity: 0.8;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navBrandTitle { font-size: 22px; }
+  .navLinks { gap: 15px; padding-right: 10px; }
+  .navLinks li { font-size: 12px; padding: 0 3px; }
+}

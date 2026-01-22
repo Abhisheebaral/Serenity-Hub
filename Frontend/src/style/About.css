@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.aboutPage {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* ===== HERO SECTION ===== */
+.aboutHero {
+  background: linear-gradient(135deg, #0b4ec3, #6fa3ff);
+  background-size: 200% 200%;
+  color: white;
+  text-align: center;
+  padding: 100px 20px 80px;
+  animation: gradientMove 15s ease infinite;
+}
+
+.aboutHero h1 {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards 0.2s, floatText 6s ease-in-out infinite;
+}
+
+.aboutHero p {
+  font-size: 16px;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards 0.6s;
+}
+
+/* ===== Animations ===== */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatText {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ===== CONTENT ===== */
+.aboutContent {
+  padding: 80px 6%;
+  opacity: 0;
+  animation: fadeInContent 1s ease-out forwards 0.8s;
+}
+
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MISSION SECTION ===== */
+.missionSection {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 90px;
+  flex-wrap: wrap;
+}
+
+.missionImage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeInLeft 1s ease-out forwards 1s;
+}
+
+.missionImage img {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 22px;
+  box-shadow: 0 10px 25px rgba(11, 78, 195, 0.25);
+}
+
+.missionText {
+  flex: 1;
+  opacity: 0;
+  animation: fadeInRight 1s ease-out forwards 1.2s;
+}
+
+.missionText h2 {
+  color: #0b4ec3;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.missionText p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+/* ===== INFO CARDS ===== */
+.infoCards {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.infoCard {
+  background: #eaf2ff;
+  padding: 35px 30px;
+  width: 320px;
+  border-radius: 22px;
+  box-shadow: 0 8px 20px rgba(11, 78, 195, 0.15);
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards 1.4s;
+}
+
+.infoCard h3 {
+  color: #0b4ec3;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.infoCard p,
+.infoCard li {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.infoCard ul {
+  padding-left: 18px;
+}
+
+/* ===== ANIMATIONS FOR SECTIONS ===== */
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .aboutHero h1 {
+    font-size: 32px;
+  }
+
+  .missionSection {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .missionText {
+    text-align: center;
+  }
+}

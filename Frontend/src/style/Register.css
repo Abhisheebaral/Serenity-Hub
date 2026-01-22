@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.registerPage {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wrapper to center register container under navbar */
+.registerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 70px); /* adjust for navbar */
+  padding: 40px 0;
+}
+
+/* Centered Register Container */
+.registerContainer {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 30px rgba(11,78,195,0.1);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  border: 2px solid rgba(11,78,195,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.registerContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(11,78,195,0.15);
+}
+
+/* Title */
+.registerTitle {
+  font-size: 30px;
+  color: #0b4ec3;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.registerSubtitle {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 30px;
+}
+
+/* Form Inputs */
+.registerForm input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s all;
+}
+
+.registerForm input:focus {
+  border-color: #0b4ec3;
+  box-shadow: 0 0 5px rgba(11, 78, 195, 0.2);
+}
+
+/* Register Button */
+.registerBtn {
+  width: 100%;
+  padding: 12px;
+  background: #0b4ec3;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.registerBtn:hover {
+  background: #0741a3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(11, 78, 195, 0.2);
+}
+
+/* Error Messages */
+.errorMsg {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* Login Link */
+.loginLink {
+  font-size: 12px;
+  color: #4b5563;
+  margin-top: 20px;
+}
+
+.loginLink span {
+  color: #0b4ec3;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.loginLink span:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .registerContainer {
+    padding: 30px 20px;
+  }
+
+  .registerTitle {
+    font-size: 24px;
+  }
+
+  .registerBtn {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ==============================================
+   GLOBAL WRAPPER
+============================================== */
+.viewMoreWrapper {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* ==============================================
+   CONTAINER INNER
+============================================== */
+.viewMoreInner {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+/* ==============================================
+   BACK BUTTON
+============================================== */
+.backButton {
+  background-color: #eaf2ff;
+  color: #0b4ec3;
+  font-weight: 500;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: background 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #d0e0ff;
+}
+
+/* ==============================================
+   HERO IMAGE
+============================================== */
+.proHero {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.proHero img {
+  max-width: 250px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(11, 78, 195, 0.2);
+}
+
+/* ==============================================
+   HEADER (NAME + ROLE)
+============================================== */
+.proHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.proHeader h1 {
+  font-size: 32px;
+  color: #0b4ec3;
+  margin-bottom: 6px;
+}
+
+.proHeader .role {
+  font-size: 18px;
+  color: #374151;
+  margin-bottom: 0;
+}
+
+/* ==============================================
+   META INFORMATION (LOCATION, HOURS, EDUCATION, FEES)
+============================================== */
+.proMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.metaItem {
+  background: #eaf2ff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #0b4ec3;
+  font-weight: 500;
+  flex: 1 1 180px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(11, 78, 195, 0.1);
+}
+
+/* ==============================================
+   ABOUT SECTION
+============================================== */
+.proSection {
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(11, 78, 195, 0.1);
+  margin-bottom: 30px;
+}
+
+.proSection h2 {
+  color: #0b4ec3;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.proSection p {
+  font-size: 16px;
+  color: #374151;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+/* ==============================================
+   APPOINTMENT BUTTON
+============================================== */
+.appointmentBtn {
+  background-color: #0b4ec3;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.appointmentBtn:hover {
+  background-color: #0a3bb0;
+  transform: translateY(-2px);
+}
+
+/* ==============================================
+   RESPONSIVE STYLING
+============================================== */
+@media (max-width: 1024px) {
+  .proHero img {
+    max-width: 220px;
+  }
+  .proHeader h1 {
+    font-size: 28px;
+  }
+  .proHeader .role {
+    font-size: 16px;
+  }
+  .metaItem {
+    flex: 1 1 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .proHero img {
+    max-width: 180px;
+  }
+  .viewMoreInner {
+    padding: 20px 10px;
+  }
+  .proMeta {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .proHeader h1 {
+    font-size: 24px;
+  }
+  .proSection p {
+    font-size: 15px;
+  }
+  .appointmentBtn {
+    width: 100%;
+    padding: 12px 0;
+  }
+}

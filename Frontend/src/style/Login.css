@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.loginPage {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  padding: 40px 0;
+}
+
+.loginContainer {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.loginTitle {
+  font-size: 28px;
+  color: #0b4ec3;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.loginSubtitle {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 30px;
+}
+
+.loginForm input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s all;
+}
+
+.loginForm input:focus {
+  border-color: #0b4ec3;
+  box-shadow: 0 0 5px rgba(11, 78, 195, 0.2);
+}
+
+.loginBtn {
+  width: 100%;
+  padding: 12px;
+  background: #0b4ec3;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.loginBtn:hover {
+  background: #0741a3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(11, 78, 195, 0.2);
+}
+
+.googleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.googleBtn img {
+  width: 20px;
+  height: 20px;
+}
+
+.googleBtn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.signupLink {
+  font-size: 12px;
+  color: #4b5563;
+  margin-top: 20px;
+}
+
+.signupLink span {
+  color: #0b4ec3;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signupLink span:hover {
+  text-decoration: underline;
+}
+
+.errorText {
+  color: #dc2626;
+  font-size: 12px;
+  text-align: left;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+  .loginContainer {
+    padding: 30px 20px;
+  }
+
+  .loginTitle {
+    font-size: 24px;
+  }
+
+  .loginBtn, .googleBtn {
+    font-size: 13px;
+  }
+}

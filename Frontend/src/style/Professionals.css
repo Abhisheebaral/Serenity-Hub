@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.professionalsPage {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+}
+
+/* ===== HERO BLUE SECTION ===== */
+.professionalsHero {
+  background: linear-gradient(135deg, #0b4ec3, #6fa3ff);
+  background-size: 200% 200%;
+  color: white;
+  text-align: center;
+  padding: 120px 20px 80px;
+  animation: gradientMove 15s ease infinite;
+}
+
+.professionalsHero h1 {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  animation: fadeInUp 1s ease-out forwards 0.2s, floatText 6s ease-in-out infinite;
+}
+
+.professionalsHero p {
+  font-size: 16px;
+  max-width: 650px;
+  margin: 0 auto;
+  animation: fadeInUp 1s ease-out forwards 0.6s;
+}
+
+/* ===== GRID OF CARDS ===== */
+.professionalsList {
+  padding: 60px 6% 100px;
+}
+
+.professionalsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+/* ===== CARD ===== */
+.proCard {
+  background: #ffffff;
+  border-radius: 25px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(11, 78, 195, 0.15);
+  transition: all 0.4s ease;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.proCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 35px rgba(11, 78, 195, 0.25);
+}
+
+/* ===== TOP PART OF CARD ===== */
+.proTop {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.proTop img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0b4ec3;
+}
+
+.proTop h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.verified {
+  color: #0b4ec3;
+  font-size: 14px;
+}
+
+.role {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== DETAILS ===== */
+.proDetails p {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+/* ===== VIEW MORE BUTTON ===== */
+.viewMoreBtn {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: #0b4ec3;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.viewMoreBtn:hover {
+  text-decoration: underline;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatText {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .professionalsHero h1 {
+    font-size: 32px;
+  }
+}

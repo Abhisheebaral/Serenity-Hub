@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.homePage {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+/* --- Hero Section --- */
+.heroSection {
+  position: relative;
+  height: calc(100vh - 70px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.heroImageFull {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  animation: slowZoom 20s infinite alternate;
+}
+
+.bgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  z-index: 2;
+}
+
+.heroCenterContent {
+  position: relative;
+  z-index: 10;
+  transform: translateY(-120px);
+}
+
+.heroTitle {
+  font-size: 52px;
+  font-weight: 700;
+  color: #0b4ec3;
+  margin-bottom: 10px;
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.heroSubtitle {
+  font-size: 18px;
+  color: #4b5563;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+/* --- Buttons --- */
+.heroBtnGroup {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.6s forwards;
+}
+
+.glassBtn {
+  background: transparent;
+  border: 2px solid #0b4ec3;
+  color: #0b4ec3;
+  padding: 12px 40px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.glassBtn:hover {
+  background: #0b4ec3;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(11, 78, 195, 0.3);
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .heroTitle { font-size: 38px; }
+  .heroCenterContent { transform: translateY(-80px); }
+  .heroBtnGroup { flex-direction: column; align-items: center; }
+}
+
+/* --- Learn More Section --- */
+.learnMoreSection {
+  padding: 100px 6% 60px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.learnMoreTitle {
+  font-size: 36px;
+  color: #0b4ec3;
+  font-weight: 700;
+  margin-bottom: 50px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.learnMoreContainers {
+  display: flex;
+  font-size: 25px; 
+  margin-bottom: 50px;
+  margin-top: 30px; 
+  justify-content: center;
+  gap: 50px; 
+  flex-wrap: wrap;
+}
+
+.learnMoreContainers .learnCard {
+  margin-bottom: 20px;
+}
+
+.learnCard {
+  background: #0b4ec3;
+  color: #ffffff;
+  border-radius: 25px; 
+  padding: 40px 35px;
+  width: 310px;
+  box-shadow: 0 8px 20px rgba(11, 78, 195, 0.25);
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.learnCard:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 25px rgba(11, 78, 195, 0.35);
+}
+
+.learnCard h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.learnCard p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+.learnCard:hover h3 {
+  animation: float 0.6s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .learnMoreContainers {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .learnMoreContainers .learnCard { margin-bottom: 0; }
+}
