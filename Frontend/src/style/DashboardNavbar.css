@@ -14,7 +14,7 @@
   height: 70px;
 }
 
-/* Logo — EXACT like Navbar.css */
+/* Logo */
 .dashboardNavLogo {
   font-size: 28px;
   font-weight: 700;
@@ -23,7 +23,7 @@
   margin-left: 20px;
 }
 
-/* Links — SAME STYLE */
+/* Center links */
 .dashboardNavLinks {
   display: flex;
   list-style: none;
@@ -46,7 +46,19 @@
   opacity: 0.8;
 }
 
-/* Logout Button — matches theme */
+/* Right-side container (Profile + Logout) */
+.dashboardNavActions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Remove extra spacing for right-side links */
+.dashboardNavActions .dashboardNavLinks {
+  padding-right: 0;
+}
+
+/* Logout Button */
 .logoutBtn {
   padding: 8px 20px;
   border-radius: 20px;

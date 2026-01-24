@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DashboardNavbar from "../../components/DashboardNavbar";
 import "../../style/Dashboard.css";
-import { TrendingUp, Award, Target } from "lucide-react"; // Calendar removed
+import { TrendingUp, Award, Target } from "lucide-react"; 
 import axios from "axios";
 
 const Dashboard = () => {
@@ -29,7 +29,22 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [token]);
 
-  if (loading) return <p>Loading...</p>;
+  // ---------------- LOADING SPLASH ----------------
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "linear-gradient(180deg, #f6f8ff, #f9fbff)", 
+        }}
+      >
+        <div className="spinner"></div>
+      </div>
+    );
+
   if (!checkin) return <p>Failed to load check-in</p>;
 
   const saveCheckin = async (updatedCheckin) => {
@@ -88,7 +103,7 @@ const Dashboard = () => {
     <div className="dashboardPage">
       <DashboardNavbar />
 
-      <div className="dashboardContent">
+      <div className="dashboardContent fadeInLoaded">
         <h1 className="dashboardTitle">🧠 Mental Health Dashboard</h1>
         <p className="dashboardSubtitle">Track your mental wellness journey and build healthy habits</p>
 
@@ -97,8 +112,7 @@ const Dashboard = () => {
           <div className="statCard">
             <TrendingUp className="statIcon green" />
             <p className="statLabel">Current Streak</p>
-           <h2>{checkin.streak || 1} days</h2>
-
+            <h2>{checkin.streak || 1} days</h2>
           </div>
 
           <div className="statCard" style={{ wordWrap: "break-word", overflow: "hidden", minHeight: "60px" }}>
@@ -197,11 +211,10 @@ const Dashboard = () => {
             ))}
           </div>
 
-          {/* Optional editable line */}
           <div className="card">
             <h3>💭 Line of the Day</h3>
             <textarea
-              maxLength={80} // limit characters
+              maxLength={80}
               rows={3}
               value={checkin.thoughtOfTheDay || ""}
               placeholder="Write your line for today..."
@@ -212,7 +225,7 @@ const Dashboard = () => {
                 fontSize: "14px",
                 borderRadius: "8px",
                 border: "1px solid #ccc",
-                resize: "none", // prevent resizing
+                resize: "none",
               }}
             />
           </div>
@@ -223,4 +236,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

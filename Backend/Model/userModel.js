@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../Database/db.js";
 
-
 export const Customers = sequelize.define("customers", {
   id: {
     type: DataTypes.INTEGER,
@@ -12,14 +11,14 @@ export const Customers = sequelize.define("customers", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  customerUsername: {       // now optional for existing rows
+  customerUsername: {
     type: DataTypes.STRING,
-    allowNull: true,        // <- change to true
+    allowNull: true,
     unique: true,
   },
   customerAddress: {
     type: DataTypes.STRING,
-    allowNull: true,        // <- match the database
+    allowNull: true,
   },
   customerContactNo: {
     type: DataTypes.STRING,
@@ -33,5 +32,11 @@ export const Customers = sequelize.define("customers", {
   customerPassword: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+
+  /* ✅ ADD THIS FOR PROFILE BIO */
+  customerBio: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
 });

@@ -22,7 +22,7 @@ export const getAll = async (req, res) => {
 export const save = async (req, res) => {
   try {
     const body = req.body;
-    console.log("Received registration data:", body);
+    //console.log("Received registration data:", body);
 
     // Validate required fields
     const requiredFields = ["name", "username", "email", "phone", "password"];

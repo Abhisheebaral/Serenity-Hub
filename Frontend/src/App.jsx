@@ -51,7 +51,8 @@ import Contact from "./pages/public/Contact";
 import Dashboard from "./pages/private/Dashboard";
 import Professionals from "./pages/private/Professionals";
 import Viewmore from "./pages/private/Viewmore";
-import CalmMind from "./pages/private/CalmMind"; // ✅ Added CalmMind
+import CalmMind from "./pages/private/CalmMind";
+import Profile from "./pages/private/Profile"; // ✅ Profile added
 
 // 🔐 Route Guard
 import AppRoute from "./AppRoute";
@@ -96,15 +97,24 @@ function App() {
         />
 
         {/* 🔐 CalmMind Page */}
-  <Route
-  path="/calm-mind"
-  element={
-    <AppRoute>
-      <CalmMind />
-    </AppRoute>
-  }
-/>
+        <Route
+          path="/calm-mind"
+          element={
+            <AppRoute>
+              <CalmMind />
+            </AppRoute>
+          }
+        />
 
+        {/* 🔐 Profile Page */}
+        <Route
+          path="/profile"
+          element={
+            <AppRoute>
+              <Profile />
+            </AppRoute>
+          }
+        />
       </Routes>
     </Suspense>
   );

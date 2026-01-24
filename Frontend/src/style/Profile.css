@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ===== PAGE WRAPPER ===== */
+.profile-page-wrapper {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* 🔥 REMOVE TOP BRAND HEADER COMPLETELY */
+.brand-header {
+  display: none;
+}
+
+/* ===== MAIN CONTENT (70% WIDTH) ===== */
+.profile-content {
+  width: 70%;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ===== CARD ===== */
+.profile-card {
+  background: white;
+  border-radius: 25px;
+  padding: 45px 40px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(11, 78, 195, 0.15);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* ===== HERO SECTION / PROFILE HEADER ===== */
+.hero-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 🔥 REMOVE AVATAR COMPLETELY */
+.avatar-wrapper {
+  display: none;
+}
+
+/* ===== PROFILE PAGE TITLE ===== */
+.hero-section::before {
+  content: "Profile Page";
+  display: block;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #0b4ec3;
+}
+
+/* ===== TEXT ===== */
+.display-name {
+  font-size: 26px;
+  color: #111827;
+  margin: 6px 0 4px;
+  font-weight: 700;
+}
+
+.display-username {
+  color: #6b7280;
+  margin: 0;
+  font-size: 16px;
+}
+
+.member-date {
+  color: #9ca3af;
+  font-size: 14px;
+  margin: 10px 0 24px;
+}
+
+/* ===== EDIT PROFILE BUTTON (NORMAL BLUE) ===== */
+.edit-profile-btn {
+  background-color: #2563eb; /* normal blue */
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+  background-color: #1d4ed8; /* slightly darker blue */
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== DETAILS SECTION ===== */
+.details-section h3 {
+  font-size: 20px;
+  color: #111827;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.info-row {
+  margin-bottom: 22px;
+}
+
+.info-row label {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.info-row p {
+  margin: 0;
+  font-size: 16px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.bio-content {
+  line-height: 1.7;
+  font-weight: 400 !important;
+  color: #374151;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .profile-content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-content {
+    width: 100%;
+  }
+
+  .hero-section::before {
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+
+  .display-name {
+    font-size: 22px;
+  }
+}
+
+/* ===== PERSONAL INFORMATION GRID ===== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 20px 40px; /* row-gap 20px, column-gap 40px */
+}
+
+/* Push the right column far to the right */
+.info-grid .info-row:nth-child(even) {
+  margin-left: 150px; /* moved 3 steps further right */
+}
+
+.info-row.bio {
+  grid-column: span 2; /* Bio spans full width */
+}
+
+/* ===== RESPONSIVE GRID ===== */
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr; /* single column on mobile */
+    gap: 15px 0;
+  }
+
+  .info-grid .info-row:nth-child(even) {
+    margin-left: 0; /* Reset margin on mobile */
+  }
+
+  .info-row.bio {
+    grid-column: span 1; /* full width naturally */
+  }
+}
+
+/* ===== SAVE PROFILE BUTTON ===== */
+.details-section button[type="submit"] {
+  background-color: #2563eb; /* same blue as edit button */
+  border: none;
+  padding: 10px 20px; /* slightly smaller */
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px; /* slightly smaller font */
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.details-section button[type="submit"]:hover {
+  background-color: #1d4ed8; /* slightly darker blue on hover */
+  transform: none;
+  box-shadow: none;
+}

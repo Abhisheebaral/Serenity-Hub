@@ -1,86 +1,140 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardNavbar from "../../components/DashboardNavbar";
 import "../../style/CalmMind.css";
+import axios from "axios";
+
+// Map of professionals — same as in Viewmore
+const professionalsData = {
+  1: {
+    name: "Dr. Reema Karki",
+    role: "Psychologist",
+    image: "/images/profileimage.png",
+    location: "Kathmandu, Lalitpur",
+  },
+  2: {
+    name: "Dr. Rahul Shah",
+    role: "Clinical Psychologist",
+    image: "/images/profileimageboy.png",
+    location: "Kathmandu",
+  },
+  3: {
+    name: "Sara Shrestha",
+    role: "Licensed Therapist",
+    image: "/images/profileimage.png",
+    location: "Kathmandu",
+  },
+};
 
 const CalmMind = () => {
-  const [breath, setBreath] = useState("Breathe In");
-  const [running, setRunning] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const intervalRef = useRef(null);
+  const [activeTab, setActiveTab] = useState("scheduled");
+  const [appointments, setAppointments] = useState([]);
 
-  const startBreathing = () => {
-    if (!running) {
-      setRunning(true);
-      setBreath("Breathe In");
-      intervalRef.current = setInterval(() => {
-        setBreath(prev => (prev === "Breathe In" ? "Breathe Out" : "Breathe In"));
-        setSeconds(prev => prev + 5); // increase timer per cycle
-      }, 5000);
+  /* ---------------- FETCH APPOINTMENTS ---------------- */
+  const fetchAppointments = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/appointments", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
+      // Map backend response to match frontend structure and attach professional info
+      const mapped = res.data.appointments.map((app) => {
+        const dateTime = new Date(`${app.appointmentDate}T${app.appointmentTime}`);
+        const now = new Date();
+        const isPast = dateTime < now; // ✅ Check if appointment is past
+
+        const professional = professionalsData[app.professionalId] || {};
+
+        const day = dateTime.getDate();
+        const month = dateTime.toLocaleString("default", { month: "short" }).toUpperCase();
+
+        return {
+          id: app.id,
+          doctor: professional.name || "Unknown",
+          role: professional.role || "Role not set",
+          image: professional.image || "/images/profileimage.png",
+          date: day,
+          month: month,
+          time: dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          location: professional.location || "Online / Physical",
+          status: app.status || "Pending",
+          type: isPast ? "past" : "scheduled", // ✅ Assign type based on date
+        };
+      });
+
+      setAppointments(mapped);
+    } catch (err) {
+      console.error("Error fetching appointments:", err.response?.data || err.message);
     }
   };
 
-  const stopBreathing = () => {
-    setRunning(false);
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
-  };
-
-  const resetTimer = () => {
-    setSeconds(0);
-    setBreath("Breathe In");
-    clearInterval(intervalRef.current);
-    setRunning(false);
-  };
-
   useEffect(() => {
-    return () => clearInterval(intervalRef.current);
+    fetchAppointments();
   }, []);
 
-  const formatTime = (secs) => {
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
-    return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-  }
+  const filtered = appointments.filter((app) => app.type === activeTab);
 
   return (
     <div className="calmMindPage">
       <DashboardNavbar />
 
-      {/* Hero Section */}
-      <section className="calmMindHero">
-        <h1>Release Your Anxiety Here</h1>
-        <p>"Take a moment to center yourself. Inhale peace, exhale stress, and embrace calm."</p>
+      {/* HERO SECTION */}
+      <section className="calmHero">
+        <p className="calmHeroSubtitle">Track your sessions</p>
       </section>
 
-      {/* Main Section with note + breathing ball */}
-      <section className="calmMindMain">
-        {/* Left little note */}
-        <div className="leftNote">
-          💛 "Take a deep breath. Everything is going to be okay. Just let it flow..."
+      {/* APPOINTMENTS */}
+      <div className="calmContainer">
+        <div className="calmTabs">
+          <button
+            className={`calmTab ${activeTab === "scheduled" ? "active" : ""}`}
+            onClick={() => setActiveTab("scheduled")}
+          >
+            Upcoming Sessions <span className="countBadge">{filtered.length}</span>
+          </button>
+          <button
+            className={`calmTab ${activeTab === "past" ? "active" : ""}`}
+            onClick={() => setActiveTab("past")}
+          >
+            Past Sessions
+          </button>
         </div>
 
-        {/* Center breathing ball + timer + controls */}
-        <div className="centerContent">
-          <div className={`breathBall ${breath === "Breathe In" ? "in" : "out"}`}>
-            <span className={breath === "Breathe Out" ? "whiteText" : ""}>
-              {breath}
-            </span>
-          </div>
+        <div className="appointmentList">
+          {filtered.length > 0 ? (
+            filtered.map((app) => (
+              <div className="appointmentCard" key={app.id}>
+                <div className="dateSquare">
+                  <span className="dateDay">{app.date}</span>
+                  <span className="dateMonth">{app.month}</span>
+                </div>
 
-          {/* Timer */}
-          <div className="timer">{formatTime(seconds)}</div>
+                <div className="doctorInfo">
+                  <div className="doctorHeader">
+                    <img src={app.image} alt={app.doctor} className="miniAvatar" />
+                    <div>
+                      <h3>{app.doctor}</h3>
+                      <p className="doctorRole">{app.role}</p>
+                    </div>
+                  </div>
 
-          {/* Controls */}
-          <div className="breathControls">
-            {!running ? (
-              <button className="startBtn" onClick={startBreathing}>▶ Start</button>
-            ) : (
-              <button className="stopBtn" onClick={stopBreathing}>⏹ Stop</button>
-            )}
-            <button className="resetBtn" onClick={resetTimer}>🔄 Reset</button>
-          </div>
+                  <div className="appointmentMeta">
+                    <span>🕒 {app.time}</span>
+                    <span>📍 {app.location}</span>
+                  </div>
+                </div>
+
+                <div className={`statusTag ${app.status.toLowerCase()}`}>
+                  {app.status}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="emptyState">
+              <p>No appointments found in this section.</p>
+            </div>
+          )}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

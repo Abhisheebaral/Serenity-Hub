@@ -1,7 +1,10 @@
 import { DailyCheckin } from "../Model/checkinModel.js";
-import { Customers } from "../Model/userModel.js"; // make sure this import exists
+import { Customers } from "../Model/userModel.js"; 
 import dayjs from "dayjs";
 
+/* =========================
+   GET TODAY CHECK-IN
+========================= */
 export const getTodayCheckin = async (req, res) => {
   try {
     const today = dayjs().format("YYYY-MM-DD");
@@ -15,8 +18,9 @@ export const getTodayCheckin = async (req, res) => {
     // Get user
     const user = await Customers.findByPk(customerId);
 
-    // Increment streak if not already incremented today
-    if (!user.last_streak_date || dayjs(user.last_streak_date).isBefore(today)) {
+    // ---------------- STREAK AUTO-INCREMENT ----------------
+    // Increment streak only if last_streak_date is not today
+    if (!user.last_streak_date || dayjs(user.last_streak_date).isBefore(today, "day")) {
       user.streak = (user.streak || 0) + 1;
       user.last_streak_date = today;
       await user.save();
@@ -30,7 +34,7 @@ export const getTodayCheckin = async (req, res) => {
       });
     }
 
-    // Return everything, including streak
+    // Return check-in + streak
     res.json({ ...checkin.toJSON(), streak: user.streak });
   } catch (err) {
     console.error(err);
@@ -38,6 +42,9 @@ export const getTodayCheckin = async (req, res) => {
   }
 };
 
+/* =========================
+   UPDATE TODAY CHECK-IN
+========================= */
 export const updateTodayCheckin = async (req, res) => {
   try {
     const today = dayjs().format("YYYY-MM-DD");

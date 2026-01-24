@@ -1,185 +1,165 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* ===== PAGE ===== */
 .calmMindPage {
   font-family: 'Poppins', sans-serif;
-  background: #f9f9f9;
+  background: linear-gradient(180deg, #f6f8ff, #f9fbff);
   min-height: 100vh;
+  padding-bottom: 50px;
 }
 
 /* ===== HERO SECTION ===== */
-.calmMindHero {
-  background: linear-gradient(135deg, #0b4ec3, #6fa3ff);
-  background-size: 200% 200%;
-  color: white;
+.calmHero {
   text-align: center;
-  padding: 120px 20px 80px;
-  animation: gradientMove 15s ease infinite;
+  padding: 80px 20px 40px;
 }
 
-.calmMindHero h1 {
-  font-size: 44px;
-  font-weight: 700;
-  margin-bottom: 15px;
+.calmHeroSubtitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #64748b;
 }
 
-.calmMindHero p {
-  font-size: 16px;
-  max-width: 650px;
+/* ===== TABS ===== */
+.calmContainer {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* ===== MAIN SECTION ===== */
-.calmMindMain {
+.calmTabs {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  margin: 80px 20px;
-  flex-wrap: wrap;
+  gap: 24px;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 30px;
 }
 
-/* ===== LEFT NOTE ===== */
-.leftNote {
-  max-width: 200px;
-  font-size: 16px;
-  background: #f0f8ff;
-  padding: 15px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.calmTab {
+  background: none;
+  border: none;
+  padding: 10px 5px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  position: relative;
+}
+
+.calmTab.active {
   color: #0b4ec3;
-  line-height: 1.5;
-  font-style: italic;
 }
 
-/* ===== CENTER CONTENT ===== */
-.centerContent {
+.calmTab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #0b4ec3;
+}
+
+.countBadge {
+  background: #0b4ec3;
+  color: white;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+/* ===== APPOINTMENT CARDS ===== */
+.appointmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.appointmentCard {
+  background: linear-gradient(145deg, #ffffff, #f4f7ff);
+  padding: 20px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 10px 25px rgba(11, 78, 195, 0.12);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.appointmentCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(11, 78, 195, 0.2);
+}
+
+.dateSquare {
+  background-color: #0b4ec3;
+  color: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-}
-
-/* ===== BREATHING BALL ===== */
-.breathBall {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: flex;
   justify-content: center;
+  flex-shrink: 0;
+}
+
+.dateDay { font-size: 28px; font-weight: 700; }
+.dateMonth { font-size: 14px; font-weight: 500; text-transform: uppercase; }
+
+.doctorInfo { flex: 1; }
+
+.doctorHeader {
+  display: flex;
   align-items: center;
-  font-weight: 700;
-  font-size: 20px;
-  transition: all 5s ease-in-out;
-  box-shadow: 0 0 30px rgba(11, 78, 195, 0.5);
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
-/* Breathe In */
-.breathBall.in {
-  transform: scale(1.2);
-  background: #0b4ec3;
-  color: white;
+.miniAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0b4ec3;
 }
 
-/* Breathe Out */
-.breathBall.out {
-  transform: scale(0.8);
-  background: #ff4d4d;
-  color: white;
-}
+.doctorInfo h3 { margin: 0; font-size: 18px; color: #111827; }
+.doctorRole { color: #64748b; font-size: 14px; margin: 0; }
 
-.whiteText {
-  color: white;
-}
-
-/* ===== TIMER ===== */
-.timer {
-  font-size: 22px;
-  font-weight: 600;
-  color: #0b4ec3;
-  margin-top: 10px;
-}
-
-/* ===== BUTTONS ===== */
-.breathControls {
+.appointmentMeta {
   display: flex;
   gap: 15px;
-  margin-top: 10px;
+  font-size: 14px;
+  color: #64748b;
 }
 
-.startBtn,
-.stopBtn,
-.resetBtn {
-  padding: 12px 28px;
-  border-radius: 30px;
-  font-size: 16px;
+.statusTag {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 15px rgba(11, 78, 195, 0.25);
+  text-transform: uppercase;
 }
 
-.startBtn {
-  background: linear-gradient(90deg, #22c55e, #86efac);
-  color: white;
-  animation: pulseGlow 2s ease-in-out infinite;
-}
+.statusTag.confirmed { background: #e6f0ff; color: #0b4ec3; }
+.statusTag.pending { background: #e0e7ff; color: #4338ca; }
 
-.startBtn:hover {
-  transform: scale(1.05);
-}
-
-.stopBtn {
-  background: #ff4d4d;
-  color: white;
-}
-
-.stopBtn:hover {
-  transform: scale(1.05);
-}
-
-.resetBtn {
-  background: #0b4ec3;
-  color: white;
-}
-
-.resetBtn:hover {
-  transform: scale(1.05);
-}
-
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); transform: scale(1); }
-  50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.7); transform: scale(1.05); }
-  100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); transform: scale(1); }
+/* ===== EMPTY STATE ===== */
+.emptyState {
+  text-align: center;
+  color: #718096;
+  padding: 40px 0;
 }
 
 /* ===== ANIMATIONS ===== */
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .calmMindMain {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .leftNote {
-    max-width: 90%;
-    text-align: center;
-  }
-
-  .breathBall {
-    width: 140px;
-    height: 140px;
-    font-size: 18px;
-  }
-
-  .timer {
-    font-size: 20px;
-  }
+@media (max-width: 900px) {
+  .calmHeroSubtitle { font-size: 18px; }
+  .calmContainer { padding: 0 16px; }
 }

@@ -20,16 +20,21 @@ const DashboardNavbar = () => {
       </div>
 
       <ul className="dashboardNavLinks">
-        {/* ✅ DASHBOARD ADDED */}
         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
-
         <li onClick={() => navigate("/professionals")}>Professionals</li>
         <li onClick={() => navigate("/calm-mind")}>Calm Mind</li>
       </ul>
 
-      <button className="logoutBtn" onClick={handleLogout}>
-        Logout
-      </button>
+      {/* RIGHT SIDE ACTIONS */}
+      <div className="dashboardNavActions">
+        <ul className="dashboardNavLinks">
+          <li onClick={() => navigate("/profile")}>Profile</li>
+        </ul>
+
+        <button className="logoutBtn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
     </nav>
   );
 };
