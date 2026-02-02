@@ -33,10 +33,13 @@ export const Customers = sequelize.define("customers", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
-  /* ✅ ADD THIS FOR PROFILE BIO */
   customerBio: {
     type: DataTypes.TEXT,
     allowNull: true,
+  },
+  customerRole: {          // ✅ NEW: role column
+    type: DataTypes.STRING,
+    defaultValue: "user",
+    allowNull: false,
   },
 });

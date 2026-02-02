@@ -1,6 +1,5 @@
 import express from "express";
-import { login } from "../Controller/authController.js"; // ✅
-
+import { login } from "../Controller/authController.js";
 
 export const authRouter = express.Router();
 

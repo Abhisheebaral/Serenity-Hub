@@ -2,23 +2,19 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// 🔹 DB (named imports only)
 import { sequelize, connection } from "./Database/db.js";
-
-// 🔹 Models (load them to register with Sequelize)
 import "./Model/userModel.js";
 import "./Model/checkinModel.js";
-import "./Model/appointmentModel.js"; // Make sure Appointments model is loaded
+import "./Model/appointmentModel.js";
 
-// 🔹 Routes
 import { router as customerRouter } from "./Route/customerRoute.js";
 import appointmentRoute from "./Route/appointmentRoute.js";
 import { authRouter } from "./Route/authRoute.js";
 import checkinRoute from "./Route/checkinRoute.js";
 import statsRoute from "./Route/statsRoute.js";
 import profileRoute from "./Route/profileRoute.js";
+import adminRoute from "./Route/adminRoute.js"; // ✅ admin route
 
-// 🔹 Controllers
 import { save } from "./Controller/customerController.js";
 
 dotenv.config();
@@ -26,43 +22,23 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-/* ---------------- MIDDLEWARE ---------------- */
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
-/* ---------------- DATABASE ---------------- */
-await connection(); // connect to DB
+await connection();
+await sequelize.sync({ alter: true }).then(() => console.log("DB synced")).catch(console.error);
 
-// 🔥 SYNC DATABASE (safe, does not drop tables)
-await sequelize
-  .sync({ alter: true }) // ✅ updates tables to match models without dropping
-  .then(() => console.log("Database synced successfully"))
-  .catch((err) => console.error("DB sync failed:", err));
+app.get("/", (req, res) => res.send("Server is running!"));
 
-/* ---------------- ROUTES ---------------- */
-app.get("/", (req, res) => {
-  res.send("Server is running!");
-});
-
+// --- Routes ---
 app.use("/api/customer", customerRouter);
 app.use("/auth", authRouter);
 app.use("/api/profile", profileRoute);
 app.use("/api/appointments", appointmentRoute);
-
-// frontend registration endpoint
-app.post("/users", save);
-
-// 🔥 DASHBOARD ROUTES
 app.use("/api/checkin", checkinRoute);
 app.use("/api/stats", statsRoute);
+app.use("/api/admin", adminRoute); // ✅ admin route
 
-/* ---------------- SERVER ---------------- */
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.post("/users", save);
+
+app.listen(port, () => console.log(`Server running on port ${port}`));

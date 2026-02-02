@@ -1,36 +1,33 @@
-
-// import { Navigate } from "react-router-dom";
-
-// /* 🔐 Inline Private Route */
-// const AppRoute = ({ children }) => {
-//   const token = localStorage.getItem("token");
-
-//   // If no token → redirect to HOME
-//   if (!token) {
-//     return <Navigate to="/" replace />;
-//   }
-
-//   // Token exists → allow route
-//   return children;
-// };
-
-// export default AppRoute;
+// src/AppRoute.jsx
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
-const AppRoute = ({ children }) => {
+const AppRoute = ({ children, role }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [userRole, setUserRole] = useState(localStorage.getItem("role"));
 
+  // Listen for localStorage changes (like manual deletion)
   useEffect(() => {
-    const handleStorageChange = () => setToken(localStorage.getItem("token"));
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    const handleStorage = () => {
+      setToken(localStorage.getItem("token"));
+      setUserRole(localStorage.getItem("role"));
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  if (!token) return <Navigate to="/" replace />;
+  // ❌ Not logged in
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
+  // ❌ Role mismatch (only when role is provided)
+  if (role && role !== userRole) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // ✅ Allowed
   return children;
 };
 
 export default AppRoute;
-
