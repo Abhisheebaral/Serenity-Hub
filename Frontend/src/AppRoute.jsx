@@ -16,17 +16,15 @@ const AppRoute = ({ children, role }) => {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  // ❌ Not logged in
   if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  // ❌ Role mismatch (only when role is provided)
   if (role && role !== userRole) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  // ✅ Allowed
+
   return children;
 };
 

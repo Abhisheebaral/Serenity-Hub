@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.appointmentPage {
+  font-family: 'Poppins', sans-serif;
+  padding: 40px 6%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f6f8ff, #f9fbff);
+}
+
+.appointmentCard {
+  background: linear-gradient(145deg, #ffffff, #f4f7ff);
+  padding: 28px;
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(11, 78, 195, 0.12);
+  margin-bottom: 30px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.appointmentCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(11, 78, 195, 0.2);
+}
+
+.appointmentCard h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0b4ec3;
+  margin-bottom: 16px;
+}
+
+.appointmentTableWrapper {
+  overflow-x: auto;
+}
+
+.appointmentTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  font-size: 14px;
+}
+
+/* Approve button (green/blue) */
+.approveButton {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.approveButton:hover {
+  background-color: #218838;
+}
+
+/* Deny / Cancel button (red) */
+.denyButton, .cancelButton {
+  padding: 6px 12px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 5px;
+  transition: background-color 0.3s;
+}
+
+.denyButton:hover, .cancelButton:hover {
+  background-color: #a71d2a;
+}
+
+/* Edit button (blue) */
+.editButton {
+  padding: 6px 12px;
+  background-color: #1e90ff; /* Blue */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 5px; /* spacing from previous buttons */
+  transition: background-color 0.3s;
+}
+
+.editButton:hover {
+  background-color: #0b75d1; /* Darker blue */
+}
+
+/* Save button (green) */
+.saveButton {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.saveButton:hover {
+  background-color: #218838;
+}
+
+.appointmentTable thead th {
+  text-align: left;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+  padding: 10px 16px;
+}
+
+.appointmentTable tbody tr {
+  background: linear-gradient(145deg, #ffffff, #f4f7ff);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(11, 78, 195, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.appointmentTable tbody tr:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(11, 78, 195, 0.18);
+}
+
+.appointmentTable td {
+  padding: 14px 16px;
+  color: #111827;
+}
+
+.appointmentTable tbody tr td:first-child {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.appointmentTable tbody tr td:last-child {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+@media (max-width: 900px) {
+  .appointmentPage {
+    padding: 20px;
+  }
+
+  .appointmentTable {
+    font-size: 13px;
+  }
+}

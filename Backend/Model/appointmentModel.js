@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../Database/db.js";
-import "./userModel.js"; // ensure User model is loaded for FK if needed
 
+// Define the Appointments model
 export const Appointments = sequelize.define(
   "appointments", // lowercase name
   {
@@ -30,9 +30,15 @@ export const Appointments = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Pending",
+    },
   },
   {
     tableName: "appointments", // force lowercase table name
     timestamps: true,
   }
 );
+

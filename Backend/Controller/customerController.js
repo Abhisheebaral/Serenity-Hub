@@ -3,9 +3,8 @@ import { Customers } from "../Model/userModel.js";
 
 import jwt from "jsonwebtoken";
 
-// -----------------------------
+
 // Get all customers
-// -----------------------------
 export const getAll = async (req, res) => {
   try {
     const customer = await Customers.findAll();
@@ -16,13 +15,13 @@ export const getAll = async (req, res) => {
   }
 };
 
-// -----------------------------
+
 // Register a new customer
-// -----------------------------
+
 export const save = async (req, res) => {
   try {
     const body = req.body;
-    //console.log("Received registration data:", body);
+    
 
     // Validate required fields
     const requiredFields = ["name", "username", "email", "phone", "password"];
@@ -49,7 +48,7 @@ export const save = async (req, res) => {
       customerUsername: body.username,
       customerEmail: body.email,
       customerContactNo: body.phone,
-      customerPassword: body.password, // ✅ store plain password
+      customerPassword: body.password, 
       customerAddress: body.address || null,
     });
 
@@ -60,9 +59,8 @@ export const save = async (req, res) => {
   }
 };
 
-// -----------------------------
 // Customer login
-// -----------------------------
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -98,9 +96,6 @@ export const login = async (req, res) => {
   }
 };
 
-// -----------------------------
-// Get customer by ID
-// -----------------------------
 export const getById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -115,9 +110,7 @@ export const getById = async (req, res) => {
   }
 };
 
-// -----------------------------
-// Update customer by ID
-// -----------------------------
+
 export const updateById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,7 +128,7 @@ export const updateById = async (req, res) => {
 
     // Update password directly (plain)
     if (body.password) {
-      user.customerPassword = body.password; // ✅ store plain password
+      user.customerPassword = body.password; 
     }
 
     await user.save();
@@ -146,9 +139,6 @@ export const updateById = async (req, res) => {
   }
 };
 
-// -----------------------------
-// Delete customer by ID
-// -----------------------------
 export const deleteById = async (req, res) => {
   try {
     const { id } = req.params;

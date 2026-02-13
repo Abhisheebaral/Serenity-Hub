@@ -1,14 +1,30 @@
 import express from "express";
 import authMiddleware from "../Middleware/authMiddleware.js";
 import { verifyAdmin } from "../Middleware/adminMiddleware.js";
-import { getAll, deleteById } from "../Controller/customerController.js";
+
+import {
+  getDashboardStats,
+  getAllUsers,
+  deleteUserById,
+  getAllAppointments,
+  updateAppointmentStatus, 
+} from "../Controller/adminController.js";
 
 const router = express.Router();
 
-router.use(authMiddleware); // verify JWT
-router.use(verifyAdmin);    // only admin
+// Protect all routes for admin only
+router.use(authMiddleware);
+router.use(verifyAdmin);
 
-router.get("/users", getAll);
-router.delete("/user/:id", deleteById);
+// Dashboard stats
+router.get("/stats", getDashboardStats);
+
+// Users
+router.get("/users", getAllUsers);
+router.delete("/user/:id", deleteUserById);
+
+// Appointments
+router.get("/appointments", getAllAppointments);
+router.patch("/appointments/:id", updateAppointmentStatus); 
 
 export default router;

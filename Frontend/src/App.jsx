@@ -16,8 +16,9 @@ import Viewmore from "./pages/private/Viewmore";
 import CalmMind from "./pages/private/CalmMind";
 import Profile from "./pages/private/Profile";
 
-// Admin page
+// Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import Appointments from "./pages/admin/features/Appointments";
 
 // 🔐 Route Guard
 import AppRoute from "./AppRoute";
@@ -42,7 +43,6 @@ function App() {
             </AppRoute>
           }
         />
-
         <Route
           path="/professionals"
           element={
@@ -51,7 +51,6 @@ function App() {
             </AppRoute>
           }
         />
-
         <Route
           path="/professionals/:id"
           element={
@@ -60,7 +59,6 @@ function App() {
             </AppRoute>
           }
         />
-
         <Route
           path="/calm-mind"
           element={
@@ -69,7 +67,6 @@ function App() {
             </AppRoute>
           }
         />
-
         <Route
           path="/profile"
           element={
@@ -81,14 +78,21 @@ function App() {
 
         {/* 👑 Admin Protected */}
         <Route
-  path="/admin/dashboard"
-  element={
-    <AppRoute role="admin">
-      <AdminDashboard />
-    </AppRoute>
-  }
-/>
-
+          path="/admin/dashboard"
+          element={
+            <AppRoute role="admin">
+              <AdminDashboard />
+            </AppRoute>
+          }
+        />
+        <Route
+          path="/admin/appointments"
+          element={
+            <AppRoute role="admin">
+              <Appointments />
+            </AppRoute>
+          }
+        />
       </Routes>
     </Suspense>
   );

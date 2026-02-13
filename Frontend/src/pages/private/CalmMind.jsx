@@ -56,7 +56,7 @@ const CalmMind = () => {
           month: month,
           time: dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           location: professional.location || "Online / Physical",
-          status: app.status || "Pending",
+          status: app.status ? app.status : "Pending", // ✅ Fix for empty status
           type: isPast ? "past" : "scheduled", // ✅ Assign type based on date
         };
       });
@@ -71,7 +71,10 @@ const CalmMind = () => {
     fetchAppointments();
   }, []);
 
-  const filtered = appointments.filter((app) => app.type === activeTab);
+  // ✅ Optional: show only confirmed upcoming sessions
+  const filtered = appointments.filter(
+    (app) => app.type === activeTab // keep as is, or add: && (activeTab !== "scheduled" || app.status === "Confirmed")
+  );
 
   return (
     <div className="calmMindPage">
