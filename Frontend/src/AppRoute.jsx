@@ -20,9 +20,9 @@ const AppRoute = ({ children, role }) => {
     return <Navigate to="/login" replace />;
   }
 
-  if (role && role !== userRole) {
-    return <Navigate to="/dashboard" replace />;
-  }
+ if (role && userRole && role !== userRole) {
+  return <Navigate to="/dashboard" replace />;
+}
 
 
   return children;

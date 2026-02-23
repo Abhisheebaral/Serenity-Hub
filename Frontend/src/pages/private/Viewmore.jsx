@@ -1,53 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DashboardNavbar from "../../components/DashboardNavbar";
 import axios from "axios";
 import "../../style/Viewmore.css";
 
-const professionalsData = {
-  1: {
-    name: "Dr. Reema Karki",
-    role: "Psychologist",
-    image: "/images/profileimage.png",
-    location: "Kathmandu, Lalitpur",
-    education: "M.A. Psychology",
-    hours: "9 AM – 5 PM",
-    fees: "Rs. 1000 – 2000",
-    bio: "Dr. Reema Karki is an experienced psychologist specializing in anxiety, stress management, and emotional well-being. She believes in compassionate, evidence-based therapy.",
-  },
-  2: {
-    name: "Dr. Rahul Shah",
-    role: "Clinical Psychologist",
-    image: "/images/profileimageboy.png",
-    location: "Kathmandu",
-    education: "M.Phil Clinical Psychology",
-    hours: "10 AM – 5 PM",
-    fees: "Rs. 1000 – 1500",
-    bio: "Dr. Rahul Shah focuses on clinical assessments, therapy for depression, and long-term mental health care.",
-  },
-  3: {
-    name: "Sara Shrestha",
-    role: "Licensed Therapist",
-    image: "/images/profileimage.png",
-    location: "Kathmandu",
-    education: "M.Sc Counseling Psychology",
-    hours: "9 AM – 7 PM",
-    fees: "Depends",
-    bio: "Sara Shrestha provides client-centered therapy with a focus on emotional healing and personal growth.",
-  },
-};
-
 const Viewmore = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const professional = professionalsData[id];
+
+  const [professional, setProfessional] = useState(null);
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [notes, setNotes] = useState("");
   const [showForm, setShowForm] = useState(false);
 
-  if (!professional) return <div>Professional not found</div>;
+  /* Fetch professional detail */
+  useEffect(() => {
+    const fetchProfessional = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/admin/professionals/${id}`
+        );
+
+        setProfessional(res.data);
+      } catch (err) {
+        console.error(err);
+        alert("Failed to load professional detail");
+      }
+    };
+
+    fetchProfessional();
+  }, [id]);
+
+  if (!professional) return <div>Loading professional...</div>;
 
   const handleBook = async () => {
     if (!selectedDate || !selectedTime) {
@@ -57,8 +43,9 @@ const Viewmore = () => {
 
     const appointmentDateTime = new Date(`${selectedDate}T${selectedTime}`);
     const now = new Date();
+
     if (appointmentDateTime <= now) {
-      alert("You cannot book an appointment in the past. Please select a future date and time.");
+      alert("You cannot book an appointment in the past.");
       return;
     }
 
@@ -73,16 +60,21 @@ const Viewmore = () => {
       await axios.post(
         "http://localhost:3000/api/appointments",
         payload,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
 
       alert("Appointment booked successfully!");
+
       setSelectedDate("");
       setSelectedTime("");
       setNotes("");
       setShowForm(false);
     } catch (err) {
-      console.error("Booking error:", err.response?.data || err.message);
+      console.error(err);
       alert("Failed to book appointment");
     }
   };
@@ -98,28 +90,31 @@ const Viewmore = () => {
       </div>
 
       <div className="proHero">
-        <img src={professional.image} alt={professional.name} />
+        <img src={professional.image || "/images/profileimage.png"} alt="" />
       </div>
 
       <div className="viewMoreInner">
         <div className="proHeader">
           <h1>{professional.name}</h1>
-          <p className="role">{professional.role}</p>
+          <p className="role">{professional.specialization}</p>
         </div>
 
         <div className="proMeta">
           <div className="metaItem">📍 {professional.location}</div>
-          <div className="metaItem">⏰ {professional.hours}</div>
+          <div className="metaItem">⏰ {professional.officeHours}</div>
           <div className="metaItem">🎓 {professional.education}</div>
           <div className="metaItem">💰 {professional.fees}</div>
         </div>
 
         <div className="proSection">
           <h2>About</h2>
-          <p>{professional.bio}</p>
+          <p>{professional.bio || "No biography available."}</p>
         </div>
 
-        <button className="appointmentBtn" onClick={() => setShowForm(true)}>
+        <button
+          className="appointmentBtn"
+          onClick={() => setShowForm(true)}
+        >
           Book Appointment
         </button>
 
@@ -151,9 +146,13 @@ const Viewmore = () => {
               />
 
               <div className="formButtons">
-                <button className="appointmentBtn bookBtn" onClick={handleBook}>
+                <button
+                  className="appointmentBtn bookBtn"
+                  onClick={handleBook}
+                >
                   Book
                 </button>
+
                 <button
                   className="appointmentBtn cancelBtn"
                   onClick={() => setShowForm(false)}

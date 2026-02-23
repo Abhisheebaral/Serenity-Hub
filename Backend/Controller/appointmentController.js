@@ -1,4 +1,5 @@
 import { Appointments } from "../Model/appointmentModel.js";
+import { Professionals } from "../Model/professionalModel.js";
 
 /* ======================
    BOOK APPOINTMENT
@@ -27,25 +28,68 @@ export const bookAppointment = async (req, res) => {
   }
 };
 
-/* ======================
-   GET APPOINTMENTS (OPTIONAL DATE FILTER)
-====================== */
 export const getAppointments = async (req, res) => {
   try {
     const customerId = req.user.id;
-    const { date } = req.query;
-
-    let where = { customerId };
-    if (date) where.appointmentDate = date;
 
     const appointments = await Appointments.findAll({
-      where,
-      order: [["appointmentDate", "ASC"], ["appointmentTime", "ASC"]],
+      where: { customerId },
+
+      include: [
+        {
+          model: Professionals,
+          as: "professional",
+          attributes: ["id", "name", "specialization", "location", "image"]
+        }
+      ],
+
+      order: [
+        ["appointmentDate", "ASC"],
+        ["appointmentTime", "ASC"]
+      ]
     });
 
-    res.status(200).json({ success: true, appointments });
+    res.json({
+      appointments
+    });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({
+      message: "Server error"
+    });
+  }
+};
+export const updateAppointment = async (req, res) => {
+  try {
+
+    const { id } = req.params;
+
+    const appointment = await Appointments.findByPk(id);
+
+    if (!appointment) {
+      return res.status(404).json({
+        message: "Appointment not found"
+      });
+    }
+
+    await appointment.update({
+      professionalId: req.body.professionalId ?? appointment.professionalId,
+      appointmentDate: req.body.appointmentDate ?? appointment.appointmentDate,
+      appointmentTime: req.body.appointmentTime ?? appointment.appointmentTime,
+      status: req.body.status ?? appointment.status,
+      description: req.body.description ?? appointment.description
+    });
+
+    res.json({
+      success: true,
+      message: "Appointment updated successfully"
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Server error"
+    });
   }
 };

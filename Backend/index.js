@@ -6,6 +6,7 @@ import { sequelize, connection } from "./Database/db.js";
 import "./Model/userModel.js";
 import "./Model/checkinModel.js";
 import "./Model/appointmentModel.js";
+import "./Model/professionalModel.js";
 
 import { router as customerRouter } from "./Route/customerRoute.js";
 import appointmentRoute from "./Route/appointmentRoute.js";

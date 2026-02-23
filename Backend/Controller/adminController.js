@@ -1,15 +1,19 @@
-// src/Controller/adminController.js
 import { DailyCheckin } from "../Model/checkinModel.js";
 import { Customers } from "../Model/userModel.js";
 import { Appointments } from "../Model/appointmentModel.js";
 import { Sequelize } from "sequelize";
+import { Professionals } from "../Model/professionalModel.js";
 
-// ---------------- DASHBOARD STATS ----------------
+/* =============================
+   DASHBOARD STATS
+============================= */
+
 export const getDashboardStats = async (req, res) => {
   try {
     const totalCustomers = await Customers.count();
 
-    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+    const today = new Date().toISOString().split("T")[0];
+
     const todayAppointments = await Appointments.count({
       where: { appointmentDate: today },
     });
@@ -32,84 +36,244 @@ export const getDashboardStats = async (req, res) => {
       activeUsers,
       pendingAppointments,
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ---------------- USERS ----------------
+/* =============================
+   USERS
+============================= */
+
 export const getAllUsers = async (req, res) => {
   try {
     const users = await Customers.findAll({
-      attributes: ["id", "customerName", "customerEmail", "customerContactNo", "customerRole"], // <-- added phone
+      attributes: [
+        "id",
+        "customerName",
+        "customerEmail",
+        "customerContactNo",
+        "customerRole"
+      ],
       order: [["id", "ASC"]],
     });
+
     res.json(users);
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// Delete user by admin
 export const deleteUserById = async (req, res) => {
   try {
     const { id } = req.params;
+
     await Customers.destroy({ where: { id } });
+
     res.json({ message: "User deleted successfully" });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ---------------- APPOINTMENTS ----------------
-// Get all appointments for admin with customer names (no foreign key)
+/* =============================
+   APPOINTMENTS
+============================= */
+
 export const getAllAppointments = async (req, res) => {
   try {
     const appointments = await Appointments.findAll({
-      order: [["appointmentDate", "ASC"], ["appointmentTime", "ASC"]],
+      include: [
+        {
+          model: Professionals,
+          as: "professional",
+          attributes: ["id", "name", "specialization", "location", "image"]
+        },
+        {
+          model: Customers,
+          as: "customer",
+          attributes: ["id", "customerName"]
+        }
+      ],
+
+      order: [
+        ["appointmentDate", "ASC"],
+        ["appointmentTime", "ASC"]
+      ]
     });
 
-    // Manually map customer IDs to names
-    const customers = await Customers.findAll({ attributes: ["id", "customerName"] });
-    const customerMap = {};
-    customers.forEach(c => {
-      customerMap[c.id] = c.customerName;
-    });
-
-    const mappedAppointments = appointments.map((app, index) => ({
-      ...app.dataValues,
+    const result = appointments.map((app, index) => ({
+      id: app.id,
       serial: index + 1,
-      customerName: customerMap[app.customerId] || `User ${app.customerId}`,
+
+      appointmentDate: app.appointmentDate,
+      appointmentTime: app.appointmentTime,
+      description: app.description,
       status: app.status || "Pending",
+
+      customerName:
+        app.customer?.customerName ||
+        `User ${app.customerId}`,
+
+      professional: app.professional || {}
     }));
 
-    res.json(mappedAppointments);
+   res.json({
+  appointments: result
+});
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// Update appointment status (approve/confirm)
+/* Update Appointment Status */
+
 export const updateAppointmentStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
     const appointment = await Appointments.findByPk(id);
+
     if (!appointment) {
-      return res.status(404).json({ message: "Appointment not found" });
+      return res.status(404).json({
+        message: "Appointment not found"
+      });
     }
 
-    appointment.status = status;
-    await appointment.save();
+    await appointment.update({ status });
 
-    res.status(200).json({ message: "Appointment status updated", appointment });
+    res.json({
+      message: "Appointment status updated",
+      appointment
+    });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+/* =============================
+   PROFESSIONALS
+============================= */
+
+export const addProfessional = async (req, res) => {
+  try {
+    const professional = await Professionals.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      professional
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+  }
+};
+
+export const getAllProfessionals = async (req, res) => {
+  try {
+    const professionals = await Professionals.findAll({
+      order: [["id", "ASC"]],
+    });
+
+    res.json(professionals);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getProfessionalById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const professional = await Professionals.findByPk(id);
+
+    if (!professional) {
+      return res.status(404).json({
+        message: "Professional not found"
+      });
+    }
+
+    res.json(professional);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const updateProfessional = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const professional = await Professionals.findByPk(id);
+
+    if (!professional) {
+      return res.status(404).json({
+        success: false,
+        message: "Professional not found"
+      });
+    }
+
+    await professional.update(req.body);
+
+    res.json({
+      success: true,
+      message: "Professional updated successfully"
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+  }
+};
+
+export const deleteProfessional = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const professional = await Professionals.findByPk(id);
+
+    if (!professional) {
+      return res.status(404).json({
+        success: false,
+        message: "Professional not found"
+      });
+    }
+
+    await Professionals.destroy({
+      where: { id }
+    });
+
+    res.json({
+      success: true,
+      message: "Professional deleted successfully"
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
   }
 };

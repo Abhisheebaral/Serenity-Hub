@@ -19,12 +19,14 @@ const AdminNav = () => {
       <ul className="adminNavLinks">
         <li onClick={() => navigate("/admin/dashboard")}>Stats</li>
         <li onClick={() => navigate("/admin/appointments")}>Appointments</li>
-        <li onClick={() => navigate("/admin/customers")}>Customers</li>
+<li onClick={() => navigate("/admin/add-professional")}>Book</li>
       </ul>
 
       <div className="adminNavActions">
         <ul className="adminNavLinks">
-          <li>Admin</li>
+          <li onClick={() => navigate("/admin/professionals")}>
+  Manage
+</li>
         </ul>
 
         <button className="adminLogoutBtn" onClick={handleLogout}>

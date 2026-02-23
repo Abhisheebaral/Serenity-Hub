@@ -2,12 +2,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
+
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #67676d, #9333ea);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #f9fafc; /* Clean white theme */
+}
+
+/* Remove link default styling */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove focus outline */
+*:focus {
+  outline: none;
 }

@@ -1,0 +1,80 @@
+.addProfessionalContainer {
+  padding: 60px 6%;
+  font-family: "Poppins", sans-serif;
+  background: #f9fafc;
+  min-height: 100vh;
+}
+
+/* Title */
+.addProfessionalContainer h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0b4ec3;
+  margin-bottom: 30px;
+}
+
+/* Form Box */
+.addProfessionalForm {
+  max-width: 600px;
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(11, 78, 195, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Inputs */
+.addProfessionalForm input,
+.addProfessionalForm textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.addProfessionalForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Focus Effect */
+.addProfessionalForm input:focus,
+.addProfessionalForm textarea:focus {
+  border-color: #0b4ec3;
+  box-shadow: 0 0 0 3px rgba(11, 78, 195, 0.1);
+}
+
+/* Button */
+.addProfessionalForm button {
+  background: linear-gradient(135deg, #0b4ec3, #6fa3ff);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 15px;
+}
+
+.addProfessionalForm button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(11, 78, 195, 0.25);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .addProfessionalContainer {
+    padding: 40px 20px;
+  }
+
+  .addProfessionalForm {
+    padding: 25px;
+  }
+}

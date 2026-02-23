@@ -21,9 +21,9 @@ export const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.status(200).send({
-      message: "Login successful",
-      access_token: token,
+   res.status(200).send({
+  message: "Login successful",
+  token: token,
       user: {
         id: user.id,
         name: user.customerName,

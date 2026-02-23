@@ -34,10 +34,9 @@ const Login = () => {
     try {
       const res = await apiCall("POST", "/auth/login", data);
 
-      if (res?.success && res?.access_token) {
-        localStorage.setItem("token", res.access_token);
-        localStorage.setItem("role", res.user.role);
-
+     if (res?.token){
+       localStorage.setItem("token", res.token);
+localStorage.setItem("role", res.user.role);
         if (res.user.role === "admin") {
           navigate("/admin/dashboard");
         } else {

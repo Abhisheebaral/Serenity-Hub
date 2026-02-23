@@ -19,6 +19,8 @@ import Profile from "./pages/private/Profile";
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Appointments from "./pages/admin/features/Appointments";
+import AddProfessional from "./pages/admin/features/AddProfessional";
+import ManageProfessionals from "./pages/admin/features/ManageProfessionals";
 
 // 🔐 Route Guard
 import AppRoute from "./AppRoute";
@@ -76,23 +78,41 @@ function App() {
           }
         />
 
-        {/* 👑 Admin Protected */}
+{/* 👑 Admin Protected */}
+<Route
+  path="/admin/dashboard"
+  element={
+    <AppRoute role="admin">
+      <AdminDashboard />
+    </AppRoute>
+  }
+/>
+
+<Route
+  path="/admin/appointments"
+  element={
+    <AppRoute role="admin">
+      <Appointments />
+    </AppRoute>
+  }
+/>
+
+<Route
+  path="/admin/add-professional"
+  element={
+    <AppRoute role="admin">
+      <AddProfessional />
+    </AppRoute>
+  }
+/>
         <Route
-          path="/admin/dashboard"
-          element={
-            <AppRoute role="admin">
-              <AdminDashboard />
-            </AppRoute>
-          }
-        />
-        <Route
-          path="/admin/appointments"
-          element={
-            <AppRoute role="admin">
-              <Appointments />
-            </AppRoute>
-          }
-        />
+ path="/admin/professionals"
+ element={
+   <AppRoute role="admin">
+     <ManageProfessionals />
+   </AppRoute>
+ }
+/>
       </Routes>
     </Suspense>
   );

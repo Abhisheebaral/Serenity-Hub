@@ -8,14 +8,27 @@ export const apiCall = async (method, endpoint, data = {}) => {
       method,
       url: `${BASE_URL}${endpoint}`,
       data,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
     });
-    return { success: true, ...response.data };
+
+    return response.data;
   } catch (error) {
-    return { success: false, message: error.response?.data?.message || "Server unreachable" };
+    return {
+      success: false,
+      message: error.response?.data?.message || "Server unreachable"
+    };
   }
 };
 
-// Admin API
-export const getAllUsers = async () => await apiCall("get", "/api/admin/users");
-export const deleteUser = async (id) => await apiCall("delete", `/api/admin/user/${id}`);
+// Admin APIs
+export const addProfessional = (data) =>
+  apiCall("post", "/api/admin/professionals", data);
+
+export const getProfessionals = () =>
+  apiCall("get", "/api/admin/professionals");
+
+export const getProfessionalById = (id) =>
+  apiCall("get", `/api/admin/professionals/${id}`);
