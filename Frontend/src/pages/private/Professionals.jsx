@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfessionals } from "../../utils/api";
 import DashboardNavbar from "../../components/DashboardNavbar";
+import Footer from "../../components/Footer";   // ✅ Added Footer
 import "../../style/Professionals.css";
 
 const Professionals = () => {
@@ -80,6 +81,8 @@ const Professionals = () => {
 
         </div>
       </section>
+
+      <Footer />   {/* ✅ Footer Added Here */}
     </div>
   );
 };

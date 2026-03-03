@@ -39,71 +39,69 @@
   font-size: 14px;
 }
 
-/* Approve button (green/blue) */
+/* ===== BUTTONS (CLEAN SMALL ADMIN STYLE) ===== */
+
 .approveButton {
-  padding: 6px 12px;
-  background-color: #28a745;
+  background: #22c55e;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.3s;
 }
 
 .approveButton:hover {
-  background-color: #218838;
+  background: #16a34a;
 }
 
-/* Deny / Cancel button (red) */
-.denyButton, .cancelButton {
-  padding: 6px 12px;
-  background-color: #dc3545;
+.cancelButton,
+.denyButton {
+  background: #ef4444;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
   margin-left: 5px;
-  transition: background-color 0.3s;
 }
 
-.denyButton:hover, .cancelButton:hover {
-  background-color: #a71d2a;
+.cancelButton:hover,
+.denyButton:hover {
+  background: #dc2626;
 }
 
-/* Edit button (blue) */
 .editButton {
-  padding: 6px 12px;
-  background-color: #1e90ff; /* Blue */
+  background: #3b82f6;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
-  margin-left: 5px; /* spacing from previous buttons */
-  transition: background-color 0.3s;
+  margin-left: 5px;
 }
 
 .editButton:hover {
-  background-color: #0b75d1; /* Darker blue */
+  background: #2563eb;
 }
 
-/* Save button (green) */
 .saveButton {
-  padding: 6px 12px;
-  background-color: #28a745;
+  background: #22c55e;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s;
 }
 
 .saveButton:hover {
-  background-color: #218838;
+  background: #16a34a;
 }
+
+/* ===== TABLE ===== */
 
 .appointmentTable thead th {
   text-align: left;

@@ -68,17 +68,30 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+/* ⭐ FIXED DELETE USER FUNCTION */
 export const deleteUserById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await Customers.destroy({ where: { id } });
+    // Delete dependent appointments first (important for FK constraint)
+    await Appointments.destroy({
+      where: { customerId: id }
+    });
 
-    res.json({ message: "User deleted successfully" });
+    // Now delete customer
+    await Customers.destroy({
+      where: { id }
+    });
+
+    res.json({
+      message: "User deleted successfully"
+    });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({
+      message: "Server error"
+    });
   }
 };
 
@@ -124,9 +137,9 @@ export const getAllAppointments = async (req, res) => {
       professional: app.professional || {}
     }));
 
-   res.json({
-  appointments: result
-});
+    res.json({
+      appointments: result
+    });
 
   } catch (err) {
     console.error(err);

@@ -149,6 +149,21 @@
   border-bottom-right-radius: 14px;
 }
 
+/* ===== DELETE BUTTON (Small Red Normal Button) */
+.deleteButton {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background: #dc2626;
+}
+
 /* ===== STATUS BADGES ===== */
 .adminStatus {
   padding: 6px 14px;

@@ -1,10 +1,18 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import "../../style/About.css";
 
 const About = () => {
+
+  // Scroll to hero section when page loads
+  useEffect(() => {
+    const hero = document.querySelector(".aboutHero");
+    if (hero) {
+      hero.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
   return (
     <div className="aboutPage">
       {/* Navbar */}
@@ -19,7 +27,7 @@ const About = () => {
       {/* Mission Section */}
       <section className="aboutContent">
         <div className="missionSection">
-          
+
           {/* Left Image */}
           <div className="missionImage">
             <img

@@ -3,9 +3,13 @@
 /* ===== PAGE ===== */
 .calmMindPage {
   font-family: 'Poppins', sans-serif;
+
   background: linear-gradient(180deg, #f6f8ff, #f9fbff);
+
   min-height: 100vh;
-  padding-bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===== HERO SECTION ===== */
@@ -20,29 +24,43 @@
   color: #64748b;
 }
 
-/* ===== TABS ===== */
+/* ===== CONTENT WRAPPER ===== */
 .calmContainer {
+  flex: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
+/* ===== TABS ===== */
 .calmTabs {
   display: flex;
-  gap: 24px;
+  gap: 40px;
+
   border-bottom: 2px solid #e2e8f0;
+
   margin-bottom: 30px;
+
+  width: 100%;
+  padding-left: 10px;
 }
 
 .calmTab {
   background: none;
   border: none;
-  padding: 10px 5px;
+
+  padding: 12px 8px;
+
   font-size: 15px;
   font-weight: 500;
+
   color: #64748b;
+
   cursor: pointer;
   position: relative;
+
+  min-width: 180px;
+  text-align: center;
 }
 
 .calmTab.active {
@@ -51,21 +69,28 @@
 
 .calmTab.active::after {
   content: '';
+
   position: absolute;
   bottom: -2px;
   left: 0;
+
   width: 100%;
   height: 3px;
+
   background-color: #0b4ec3;
 }
 
 .countBadge {
   background: #0b4ec3;
   color: white;
+
   font-size: 12px;
+
   padding: 2px 8px;
+
   border-radius: 10px;
-  margin-left: 5px;
+
+  margin-left: 6px;
 }
 
 /* ===== APPOINTMENT CARDS ===== */
@@ -77,12 +102,17 @@
 
 .appointmentCard {
   background: linear-gradient(145deg, #ffffff, #f4f7ff);
+
   padding: 20px;
+
   border-radius: 22px;
+
   display: flex;
   align-items: center;
   gap: 20px;
+
   box-shadow: 0 10px 25px rgba(11, 78, 195, 0.12);
+
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
@@ -94,20 +124,34 @@
 .dateSquare {
   background-color: #0b4ec3;
   color: white;
+
   width: 80px;
   height: 80px;
+
   border-radius: 15px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
 }
 
-.dateDay { font-size: 28px; font-weight: 700; }
-.dateMonth { font-size: 14px; font-weight: 500; text-transform: uppercase; }
+.dateDay {
+  font-size: 28px;
+  font-weight: 700;
+}
 
-.doctorInfo { flex: 1; }
+.dateMonth {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.doctorInfo {
+  flex: 1;
+}
 
 .doctorHeader {
   display: flex;
@@ -119,13 +163,24 @@
 .miniAvatar {
   width: 50px;
   height: 50px;
+
   border-radius: 50%;
   object-fit: cover;
+
   border: 2px solid #0b4ec3;
 }
 
-.doctorInfo h3 { margin: 0; font-size: 18px; color: #111827; }
-.doctorRole { color: #64748b; font-size: 14px; margin: 0; }
+.doctorInfo h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.doctorRole {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
 
 .appointmentMeta {
   display: flex;
@@ -134,6 +189,7 @@
   color: #64748b;
 }
 
+/* ===== STATUS TAG ===== */
 .statusTag {
   padding: 6px 16px;
   border-radius: 20px;
@@ -142,8 +198,15 @@
   text-transform: uppercase;
 }
 
-.statusTag.confirmed { background: #e6f0ff; color: #0b4ec3; }
-.statusTag.pending { background: #e0e7ff; color: #4338ca; }
+.statusTag.confirmed {
+  background: #e6f0ff;
+  color: #0b4ec3;
+}
+
+.statusTag.pending {
+  background: #e0e7ff;
+  color: #4338ca;
+}
 
 /* ===== EMPTY STATE ===== */
 .emptyState {
@@ -152,14 +215,23 @@
   padding: 40px 0;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .calmHeroSubtitle { font-size: 18px; }
-  .calmContainer { padding: 0 16px; }
+
+  .calmHeroSubtitle {
+    font-size: 18px;
+  }
+
+  .calmContainer {
+    padding: 0 16px;
+  }
+
+  .calmTab {
+    min-width: 140px;
+    font-size: 14px;
+  }
+
+  .calmTabs {
+    gap: 20px;
+  }
 }

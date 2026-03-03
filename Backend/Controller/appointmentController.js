@@ -1,5 +1,6 @@
 import { Appointments } from "../Model/appointmentModel.js";
 import { Professionals } from "../Model/professionalModel.js";
+import { Op } from "sequelize";
 
 /* ======================
    BOOK APPOINTMENT
@@ -7,10 +8,28 @@ import { Professionals } from "../Model/professionalModel.js";
 export const bookAppointment = async (req, res) => {
   try {
     const customerId = req.user.id;
+
     const { professionalId, appointmentDate, appointmentTime, description } = req.body;
 
     if (!professionalId || !appointmentDate || !appointmentTime) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({
+        message: "All fields are required"
+      });
+    }
+
+    /* Conflict check */
+    const conflict = await Appointments.findOne({
+      where: {
+        professionalId,
+        appointmentDate,
+        appointmentTime
+      }
+    });
+
+    if (conflict) {
+      return res.status(400).json({
+        message: "Professional is already booked for this slot"
+      });
     }
 
     const newAppointment = await Appointments.create({
@@ -19,17 +38,28 @@ export const bookAppointment = async (req, res) => {
       appointmentDate,
       appointmentTime,
       description,
+      status: "Pending"
     });
 
-    res.status(201).json({ success: true, appointment: newAppointment });
+    res.status(201).json({
+      success: true,
+      appointment: newAppointment
+    });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({
+      message: "Server error"
+    });
   }
 };
 
+/* ======================
+   GET APPOINTMENTS
+====================== */
 export const getAppointments = async (req, res) => {
   try {
+
     const customerId = req.user.id;
 
     const appointments = await Appointments.findAll({
@@ -60,6 +90,10 @@ export const getAppointments = async (req, res) => {
     });
   }
 };
+
+/* ======================
+   UPDATE APPOINTMENT
+====================== */
 export const updateAppointment = async (req, res) => {
   try {
 
@@ -73,12 +107,39 @@ export const updateAppointment = async (req, res) => {
       });
     }
 
+    const {
+      professionalId,
+      appointmentDate,
+      appointmentTime,
+      status,
+      description
+    } = req.body;
+
+    /* Slot conflict validation */
+    if (professionalId && appointmentDate && appointmentTime) {
+
+      const conflict = await Appointments.findOne({
+        where: {
+          professionalId,
+          appointmentDate,
+          appointmentTime,
+          id: { [Op.ne]: id }
+        }
+      });
+
+      if (conflict) {
+        return res.status(400).json({
+          message: "Professional is already booked for this slot"
+        });
+      }
+    }
+
     await appointment.update({
-      professionalId: req.body.professionalId ?? appointment.professionalId,
-      appointmentDate: req.body.appointmentDate ?? appointment.appointmentDate,
-      appointmentTime: req.body.appointmentTime ?? appointment.appointmentTime,
-      status: req.body.status ?? appointment.status,
-      description: req.body.description ?? appointment.description
+      professionalId: professionalId ?? appointment.professionalId,
+      appointmentDate: appointmentDate ?? appointment.appointmentDate,
+      appointmentTime: appointmentTime ?? appointment.appointmentTime,
+      status: status ?? appointment.status,
+      description: description ?? appointment.description
     });
 
     res.json({

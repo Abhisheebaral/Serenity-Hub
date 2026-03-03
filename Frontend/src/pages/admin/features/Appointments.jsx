@@ -40,7 +40,6 @@ const Appointments = () => {
 
         ]);
 
-        /* Map professionals */
         const map = {};
         professionalRes.data.forEach(pro => {
           map[pro.id] = pro.name;
@@ -48,7 +47,6 @@ const Appointments = () => {
 
         setProfessionalsMap(map);
 
-        /* Map appointments */
         const mapped = appointmentRes.data.appointments.map((app, index) => ({
           id: app.id,
           serial: index + 1,
@@ -145,12 +143,7 @@ const Appointments = () => {
       setAppointments(prev =>
         prev.map(a =>
           a.id === id
-            ? {
-                ...a,
-                ...editForm,
-                professionalName:
-                  professionalsMap[editForm.professionalId]
-              }
+            ? { ...a, ...editForm }
             : a
         )
       );
@@ -163,8 +156,6 @@ const Appointments = () => {
       alert("Save failed");
     }
   };
-
-  /* ================= RENDER ================= */
 
   if (loading) return <p>Loading appointments...</p>;
 
@@ -273,7 +264,27 @@ const Appointments = () => {
 
                   <td>{a.description}</td>
 
-                  <td>{a.status}</td>
+                  <td>
+                    {editingId === a.id ? (
+
+                      <select
+                        value={editForm.status || "Pending"}
+                        onChange={e =>
+                          setEditForm(prev => ({
+                            ...prev,
+                            status: e.target.value
+                          }))
+                        }
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Cancelled">Cancelled</option>
+                      </select>
+
+                    ) : (
+                      a.status
+                    )}
+                  </td>
 
                   <td>
 

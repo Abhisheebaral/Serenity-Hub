@@ -1,8 +1,8 @@
 // src/pages/admin/AdminDashboard.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AdminNav from "../../components/AdminNav"; // Admin sidebar/nav
-import { Users, CalendarCheck, TrendingUp, Target } from "lucide-react";
+import AdminNav from "../../components/AdminNav";
+import { Users, CalendarCheck, TrendingUp } from "lucide-react"; // ✅ Removed Target icon
 import "../../style/AdminDashboard.css";
 
 const AdminDashboard = () => {
@@ -11,7 +11,6 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
 
-  /* ---------------- FETCH DASHBOARD DATA ---------------- */
   const fetchAdminData = async () => {
     try {
       const [statsRes, usersRes] = await Promise.all([
@@ -39,33 +38,32 @@ const AdminDashboard = () => {
       </div>
     );
 
-  /* ---------------- DELETE USER ---------------- */
   const handleDelete = async (id, role) => {
-    if (role === "admin") return; // extra safety
+    if (role === "admin") return;
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
       await axios.delete(`http://localhost:3000/api/admin/user/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       alert("User deleted successfully");
-      setUsers((prev) => prev.filter((u) => u.id !== id)); // remove deleted user from UI
+      setUsers((prev) => prev.filter((u) => u.id !== id));
     } catch (err) {
       console.error(err);
       alert("Failed to delete user");
     }
   };
 
-  /* ---------------- SORT USERS: ADMIN LAST ---------------- */
   const sortedUsers = [...users].sort((a, b) => {
     if (a.customerRole === "admin") return 1;
     if (b.customerRole === "admin") return -1;
     return a.id - b.id;
   });
 
-  /* ---------------- STATS COMPONENT ---------------- */
   const Stats = ({ stats }) => {
     if (!stats) return null;
+
     return (
       <div className="statsGrid">
         <div className="statCard">
@@ -85,17 +83,10 @@ const AdminDashboard = () => {
           <p className="statLabel">Active Users</p>
           <h2>{stats.activeUsers}</h2>
         </div>
-
-        <div className="statCard">
-          <Target className="statIcon blue" />
-          <p className="statLabel">Pending Appointments</p>
-          <h2>{stats.pendingAppointments}</h2>
-        </div>
       </div>
     );
   };
 
-  /* ---------------- CUSTOMERS TABLE COMPONENT ---------------- */
   const CustomersTable = ({ users }) => {
     return (
       <div className="card">
@@ -111,17 +102,18 @@ const AdminDashboard = () => {
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {users.map((u) => (
               <tr key={u.id}>
                 <td>{u.id}</td>
                 <td>{u.customerName}</td>
                 <td>{u.customerEmail}</td>
-                {/* Only show phone for non-admin users */}
+
                 <td>{u.customerRole !== "admin" ? u.customerContactNo || "-" : "-"}</td>
                 <td>{u.customerRole}</td>
+
                 <td>
-                  {/* Show delete button only if not admin */}
                   {u.customerRole !== "admin" && (
                     <button
                       className="deleteButton"
@@ -142,6 +134,7 @@ const AdminDashboard = () => {
   return (
     <div className="adminDashboardPage">
       <AdminNav />
+
       <div className="adminDashboardContent fadeInLoaded">
         <h1 className="adminDashboardTitle">⚡ Admin Dashboard</h1>
         <p className="adminDashboardSubtitle">Manage Users</p>

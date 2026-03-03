@@ -19,7 +19,7 @@ const Contact = () => {
           <div className="contactCard">
             <div className="iconBox">📍</div>
             <h3>Our Location</h3>
-            <p>Chabahil,kathmandu<br/>Near Medicare Hospital</p>
+            <p>Chabahil branch, Jhamsikhel branch<br/> and Sadobato branch</p>
           </div>
 
           <div className="contactCard">

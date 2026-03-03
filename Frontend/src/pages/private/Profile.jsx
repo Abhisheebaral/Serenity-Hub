@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DashboardNavbar from "../../components/DashboardNavbar";
+import Footer from "../../components/Footer";   // ✅ Added Footer
 import "../../style/Profile.css";
 
 const Profile = () => {
@@ -9,7 +10,6 @@ const Profile = () => {
     username: "",
     email: "",
     phone: "",
-    bio: "",
     memberSince: "",
   });
 
@@ -30,7 +30,6 @@ const Profile = () => {
           username: profile.username,
           email: profile.email,
           phone: profile.phone,
-          bio: profile.bio || "",
           memberSince: profile.memberSince,
         });
       } catch (err) {
@@ -41,11 +40,9 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Phone input: only digits, max 10
     if (name === "phone") {
       const digitsOnly = value.replace(/\D/g, "");
       if (digitsOnly.length <= 10) {
@@ -56,11 +53,9 @@ const Profile = () => {
     }
   };
 
-  // Submit updated profile
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Phone validation
     if (user.phone.length !== 10) {
       alert("Phone number must be exactly 10 digits");
       return;
@@ -72,7 +67,6 @@ const Profile = () => {
         {
           fullName: user.fullName,
           phone: user.phone,
-          bio: user.bio,
         },
         {
           headers: {
@@ -107,7 +101,6 @@ const Profile = () => {
       </div>
 
       <div className="profile-content">
-        {/* Top Summary Card */}
         <div className="profile-card hero-section">
           <div className="avatar-wrapper">
             <div className="initials-avatar">
@@ -134,13 +127,11 @@ const Profile = () => {
           </button>
         </div>
 
-        {/* Details Card */}
         <div className="profile-card details-section">
           <h3>Personal Information</h3>
 
           <form onSubmit={handleSubmit}>
             <div className="info-grid">
-              {/* Full Name */}
               <div className="info-row">
                 <label>👤 Full Name</label>
                 {editing ? (
@@ -155,19 +146,16 @@ const Profile = () => {
                 )}
               </div>
 
-              {/* Username (read-only) */}
               <div className="info-row">
                 <label>@ Username</label>
                 <p>{user.username}</p>
               </div>
 
-              {/* Email (read-only, displayed as text) */}
               <div className="info-row">
                 <label>✉ Email Address</label>
                 <p>{user.email}</p>
               </div>
 
-              {/* Phone */}
               <div className="info-row">
                 <label>📞 Phone Number</label>
                 {editing ? (
@@ -182,28 +170,14 @@ const Profile = () => {
                   <p>{user.phone}</p>
                 )}
               </div>
-
-              {/* Bio */}
-              <div className="info-row bio">
-                <label>Bio</label>
-                {editing ? (
-                  <textarea
-                    name="bio"
-                    value={user.bio}
-                    onChange={handleChange}
-                    rows={4}
-                  ></textarea>
-                ) : (
-                  <p className="bio-content">{user.bio}</p>
-                )}
-              </div>
             </div>
 
-            {/* Save Button */}
             {editing && <button type="submit">Save Profile</button>}
           </form>
         </div>
       </div>
+
+      <Footer />   {/* ✅ Footer Added Here */}
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DashboardNavbar from "../../components/DashboardNavbar";
+import Footer from "../../components/Footer";   // ✅ Added Footer import
 import "../../style/Dashboard.css";
-import { TrendingUp, Award, Target } from "lucide-react"; 
+import { Award, Target } from "lucide-react"; 
 import axios from "axios";
 
 const Dashboard = () => {
@@ -29,7 +30,6 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [token]);
 
-  // ---------------- LOADING SPLASH ----------------
   if (loading)
     return (
       <div
@@ -38,7 +38,7 @@ const Dashboard = () => {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          background: "linear-gradient(180deg, #f6f8ff, #f9fbff)", 
+          background: "linear-gradient(180deg, #f6f8ff, #f9fbff)",
         }}
       >
         <div className="spinner"></div>
@@ -108,14 +108,15 @@ const Dashboard = () => {
         <p className="dashboardSubtitle">Track your mental wellness journey and build healthy habits</p>
 
         {/* Stats Cards */}
-        <div className="statsGrid">
+        <div 
+          className="statsGrid" 
+          style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(3, 1fr)", 
+            gap: "20px" 
+          }}
+        >
           <div className="statCard">
-            <TrendingUp className="statIcon green" />
-            <p className="statLabel">Current Streak</p>
-            <h2>{checkin.streak || 1} days</h2>
-          </div>
-
-          <div className="statCard" style={{ wordWrap: "break-word", overflow: "hidden", minHeight: "60px" }}>
             <p className="statIcon" style={{ fontSize: "2rem", margin: "0" }}>🧠</p>
             <p className="statLabel">Line of the Day</p>
             <h2 style={{ fontWeight: "normal", fontSize: "14px", lineHeight: "1.2em", maxHeight: "2.4em", overflow: "hidden" }}>
@@ -231,6 +232,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <Footer />  {/* ✅ Footer Added Here */}
     </div>
   );
 };

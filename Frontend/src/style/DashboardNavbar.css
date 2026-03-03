@@ -7,11 +7,16 @@
   align-items: center;
   padding: 15px 10%;
   background: #0b4ec3;
-  position: relative;
-  z-index: 100;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+  height: 70px;
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: slideDown 0.8s ease-out;
-  height: 70px;
 }
 
 /* Logo */

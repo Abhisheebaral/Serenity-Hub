@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardNavbar from "../../components/DashboardNavbar";
+import Footer from "../../components/Footer";   // ✅ Added Footer
 import "../../style/CalmMind.css";
 import axios from "axios";
 
@@ -175,6 +176,8 @@ const CalmMind = () => {
           )}
         </div>
       </div>
+
+      <Footer />   {/* ✅ Footer Added Here */}
     </div>
   );
 };
