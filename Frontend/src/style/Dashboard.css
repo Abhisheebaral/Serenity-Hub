@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* ===== GLOBAL ===== */
 * {
   box-sizing: border-box;
 }
@@ -11,20 +10,17 @@
   min-height: 100vh;
 }
 
-/* ===== CONTENT ===== */
 .dashboardContent {
   padding: 50px 6%;
   opacity: 0;
   animation: fadeInContent 1s ease-out forwards 0.4s;
 }
 
-/* ===== TITLE ===== */
 .dashboardTitle {
   font-size: 30px;
   font-weight: 700;
   color: #0b4ec3;
   margin-bottom: 6px;
-  animation: fadeInUp 1s ease-out forwards, floatText 6s ease-in-out infinite;
 }
 
 .dashboardSubtitle {
@@ -38,12 +34,11 @@
 /* ===== STATS GRID ===== */
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 26px;
   margin-bottom: 38px;
 }
 
-/* ===== STAT CARD ===== */
 .statCard {
   background: linear-gradient(135deg, #ffffff, #f2f6ff);
   padding: 26px;
@@ -64,7 +59,6 @@
   height: 34px;
 }
 
-/* Icon colors */
 .green { color: #22c55e; }
 .blue { color: #2563eb; }
 .purple { color: #8b5cf6; }
@@ -82,7 +76,7 @@
   color: #111827;
 }
 
-/* ===== GENERIC CARD ===== */
+/* ===== CARD ===== */
 .card {
   background: linear-gradient(145deg, #ffffff, #f4f7ff);
   padding: 28px;
@@ -99,7 +93,7 @@
   box-shadow: 0 20px 45px rgba(11, 78, 195, 0.2);
 }
 
-/* ===== MOOD SECTION ===== */
+/* ===== MOOD ===== */
 .moodRow {
   display: flex;
   gap: 28px;
@@ -163,7 +157,7 @@
   animation: growBar 1.4s ease-out;
 }
 
-/* ===== QUICK CHECK-IN ===== */
+/* ===== CHECK-IN ===== */
 .checkItem {
   display: flex;
   align-items: center;
@@ -185,31 +179,13 @@
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInContent {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatText {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
-  100% { transform: translateY(0px); }
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes growBar {
@@ -217,113 +193,63 @@
 }
 
 /* ===== RESPONSIVE ===== */
-
-/* Tablet */
 @media (max-width: 1024px) {
-
   .dashboardContent {
     padding: 40px 5%;
   }
 
-  .dashboardTitle {
-    font-size: 26px;
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .bottomGrid {
     grid-template-columns: 1fr;
   }
-
-  .moodRow {
-    gap: 22px;
-    font-size: 26px;
-  }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-
   .dashboardContent {
-    padding: 30px 5%;
+    padding: 30px 16px;
   }
 
   .dashboardTitle {
     font-size: 22px;
   }
 
-  .dashboardSubtitle {
-    font-size: 13px;
+  .statsGrid {
+    grid-template-columns: 1fr;
   }
 
-  .statsGrid {
-    gap: 18px;
+  .card {
+    padding: 20px 16px;
+  }
+
+  .moodRow {
+    justify-content: center;
+    font-size: 24px;
+    gap: 16px;
+  }
+
+  .bottomGrid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardTitle {
+    font-size: 18px;
   }
 
   .statCard {
-    padding: 20px;
+    padding: 18px;
   }
 
   .statCard h2 {
     font-size: 22px;
   }
 
-  .card {
-    padding: 20px;
-  }
-
-  .moodRow {
-    justify-content: center;
-    font-size: 24px;
-  }
-
-  .progressItem p {
-    font-size: 12px;
-  }
-
-  .checkItem {
-    font-size: 12px;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
-
-  .dashboardContent {
-    padding: 24px 4%;
-  }
-
-  .dashboardTitle {
-    font-size: 20px;
-  }
-
-  .dashboardSubtitle {
-    font-size: 12px;
-    margin-bottom: 24px;
-  }
-
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .statCard {
-    padding: 18px;
-    border-radius: 18px;
-  }
-
-  .card {
-    border-radius: 20px;
-  }
-
-  .moodRow {
-    gap: 16px;
-    font-size: 22px;
-  }
-
   .moodSelected {
-    padding: 10px 16px;
+    padding: 10px 14px;
     font-size: 13px;
-  }
-
-  .bottomGrid {
-    gap: 20px;
   }
 }

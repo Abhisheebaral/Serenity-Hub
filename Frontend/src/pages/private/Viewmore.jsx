@@ -9,29 +9,31 @@ const Viewmore = () => {
   const { id } = useParams();
 
   const [professional, setProfessional] = useState(null);
-
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [notes, setNotes] = useState("");
   const [showForm, setShowForm] = useState(false);
 
-  /* Fetch professional detail */
   useEffect(() => {
     const fetchProfessional = async () => {
       try {
         const res = await axios.get(
           `http://localhost:3000/api/admin/professionals/${id}`
         );
-
         setProfessional(res.data);
       } catch (err) {
         console.error(err);
         alert("Failed to load professional detail");
       }
     };
-
     fetchProfessional();
   }, [id]);
+
+  const getImageSrc = (image) => {
+    if (!image) return "/images/profileimage.png";
+    if (image.startsWith("http")) return image;
+    return `http://localhost:3000${image}`;
+  };
 
   if (!professional) return <div>Loading professional...</div>;
 
@@ -68,7 +70,6 @@ const Viewmore = () => {
       );
 
       alert("Appointment booked successfully!");
-
       setSelectedDate("");
       setSelectedTime("");
       setNotes("");
@@ -90,7 +91,7 @@ const Viewmore = () => {
       </div>
 
       <div className="proHero">
-        <img src={professional.image || "/images/profileimage.png"} alt="" />
+        <img src={getImageSrc(professional.image)} alt={professional.name} />
       </div>
 
       <div className="viewMoreInner">
@@ -152,7 +153,6 @@ const Viewmore = () => {
                 >
                   Book
                 </button>
-
                 <button
                   className="appointmentBtn cancelBtn"
                   onClick={() => setShowForm(false)}

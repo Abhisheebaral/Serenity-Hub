@@ -30,6 +30,7 @@
 
 .appointmentTableWrapper {
   overflow-x: auto;
+  width: 100%;
 }
 
 .appointmentTable {
@@ -37,71 +38,8 @@
   border-collapse: separate;
   border-spacing: 0 12px;
   font-size: 14px;
+  min-width: 700px;
 }
-
-/* ===== BUTTONS (CLEAN SMALL ADMIN STYLE) ===== */
-
-.approveButton {
-  background: #22c55e;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.approveButton:hover {
-  background: #16a34a;
-}
-
-.cancelButton,
-.denyButton {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 5px;
-}
-
-.cancelButton:hover,
-.denyButton:hover {
-  background: #dc2626;
-}
-
-.editButton {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 5px;
-}
-
-.editButton:hover {
-  background: #2563eb;
-}
-
-.saveButton {
-  background: #22c55e;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.saveButton:hover {
-  background: #16a34a;
-}
-
-/* ===== TABLE ===== */
 
 .appointmentTable thead th {
   text-align: left;
@@ -138,12 +76,131 @@
   border-bottom-right-radius: 14px;
 }
 
-@media (max-width: 900px) {
+.actionButtons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.approveButton,
+.cancelButton,
+.denyButton,
+.editButton,
+.saveButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.approveButton,
+.saveButton {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.approveButton:hover,
+.saveButton:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+}
+
+.cancelButton,
+.denyButton {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  margin-left: 0;
+}
+
+.cancelButton:hover,
+.denyButton:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+.editButton {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  margin-left: 0;
+}
+
+.editButton:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+}
+
+/* ===== STATUS BADGES ===== */
+.statusBadge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.statusBadge.confirmed { background: #e6f0ff; color: #0b4ec3; }
+.statusBadge.pending { background: #fff7ed; color: #f97316; }
+.statusBadge.cancelled { background: #fee2e2; color: #dc2626; }
+.statusBadge.completed { background: #e0f2fe; color: #0369a1; }
+.statusBadge.rescheduled { background: #fef9c3; color: #ca8a04; }
+
+.noActions {
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
   .appointmentPage {
-    padding: 20px;
+    padding: 30px 4%;
+  }
+}
+
+@media (max-width: 768px) {
+  .appointmentPage {
+    padding: 24px 16px;
+  }
+
+  .appointmentCard {
+    padding: 20px 16px;
   }
 
   .appointmentTable {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .appointmentTable td,
+  .appointmentTable th {
+    padding: 10px 10px;
+  }
+
+  .approveButton,
+  .cancelButton,
+  .denyButton,
+  .editButton,
+  .saveButton {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .actionButtons {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

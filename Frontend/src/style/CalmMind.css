@@ -3,16 +3,13 @@
 /* ===== PAGE ===== */
 .calmMindPage {
   font-family: 'Poppins', sans-serif;
-
   background: linear-gradient(180deg, #f6f8ff, #f9fbff);
-
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO ===== */
 .calmHero {
   text-align: center;
   padding: 80px 20px 40px;
@@ -24,23 +21,21 @@
   color: #64748b;
 }
 
-/* ===== CONTENT WRAPPER ===== */
+/* ===== CONTAINER ===== */
 .calmContainer {
   flex: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
 }
 
 /* ===== TABS ===== */
 .calmTabs {
   display: flex;
   gap: 40px;
-
   border-bottom: 2px solid #e2e8f0;
-
   margin-bottom: 30px;
-
   width: 100%;
   padding-left: 10px;
 }
@@ -48,17 +43,12 @@
 .calmTab {
   background: none;
   border: none;
-
   padding: 12px 8px;
-
   font-size: 15px;
   font-weight: 500;
-
   color: #64748b;
-
   cursor: pointer;
   position: relative;
-
   min-width: 180px;
   text-align: center;
 }
@@ -69,31 +59,24 @@
 
 .calmTab.active::after {
   content: '';
-
   position: absolute;
   bottom: -2px;
   left: 0;
-
   width: 100%;
   height: 3px;
-
   background-color: #0b4ec3;
 }
 
 .countBadge {
   background: #0b4ec3;
   color: white;
-
   font-size: 12px;
-
   padding: 2px 8px;
-
   border-radius: 10px;
-
   margin-left: 6px;
 }
 
-/* ===== APPOINTMENT CARDS ===== */
+/* ===== APPOINTMENT LIST ===== */
 .appointmentList {
   display: flex;
   flex-direction: column;
@@ -102,17 +85,12 @@
 
 .appointmentCard {
   background: linear-gradient(145deg, #ffffff, #f4f7ff);
-
   padding: 20px;
-
   border-radius: 22px;
-
   display: flex;
   align-items: center;
   gap: 20px;
-
   box-shadow: 0 10px 25px rgba(11, 78, 195, 0.12);
-
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
@@ -121,20 +99,17 @@
   box-shadow: 0 18px 35px rgba(11, 78, 195, 0.2);
 }
 
+/* ===== DATE SQUARE ===== */
 .dateSquare {
   background-color: #0b4ec3;
   color: white;
-
   width: 80px;
   height: 80px;
-
   border-radius: 15px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
 }
 
@@ -149,6 +124,7 @@
   text-transform: uppercase;
 }
 
+/* ===== DOCTOR INFO ===== */
 .doctorInfo {
   flex: 1;
 }
@@ -163,10 +139,8 @@
 .miniAvatar {
   width: 50px;
   height: 50px;
-
   border-radius: 50%;
   object-fit: cover;
-
   border: 2px solid #0b4ec3;
 }
 
@@ -187,6 +161,17 @@
   gap: 15px;
   font-size: 14px;
   color: #64748b;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+/* ===== CARD RIGHT ===== */
+.cardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* ===== STATUS TAG ===== */
@@ -198,14 +183,30 @@
   text-transform: uppercase;
 }
 
-.statusTag.confirmed {
-  background: #e6f0ff;
-  color: #0b4ec3;
+.statusTag.confirmed { background: #e6f0ff; color: #0b4ec3; }
+.statusTag.pending { background: #e0e7ff; color: #4338ca; }
+.statusTag.cancelled { background: #fee2e2; color: #dc2626; }
+.statusTag.rescheduled { background: #fef9c3; color: #ca8a04; }
+
+/* ===== CANCEL BUTTON ===== */
+.cancelAppointmentBtn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
 }
 
-.statusTag.pending {
-  background: #e0e7ff;
-  color: #4338ca;
+.cancelAppointmentBtn:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
 }
 
 /* ===== EMPTY STATE ===== */
@@ -216,22 +217,69 @@
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-
-  .calmHeroSubtitle {
-    font-size: 18px;
-  }
-
+@media (max-width: 1024px) {
   .calmContainer {
     padding: 0 16px;
   }
+}
 
-  .calmTab {
-    min-width: 140px;
-    font-size: 14px;
+@media (max-width: 768px) {
+  .calmHero {
+    padding: 50px 16px 30px;
+  }
+
+  .calmHeroSubtitle {
+    font-size: 16px;
   }
 
   .calmTabs {
-    gap: 20px;
+    gap: 16px;
+    padding-left: 0;
+  }
+
+  .calmTab {
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  .appointmentCard {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .cardRight {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .dateSquare {
+    width: 65px;
+    height: 65px;
+  }
+
+  .dateDay {
+    font-size: 22px;
+  }
+
+  .doctorInfo h3 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calmTab {
+    min-width: 100px;
+    font-size: 12px;
+  }
+
+  .appointmentMeta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .miniAvatar {
+    width: 40px;
+    height: 40px;
   }
 }

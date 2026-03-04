@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardNavbar from "../../components/DashboardNavbar";
-import Footer from "../../components/Footer";   // ✅ Added Footer
+import Footer from "../../components/Footer";
 import "../../style/CalmMind.css";
 import axios from "axios";
 
@@ -10,117 +10,90 @@ const CalmMind = () => {
 
   const token = localStorage.getItem("token");
 
-  /* Fetch appointments */
   const fetchAppointments = async () => {
     try {
       const res = await axios.get(
         "http://localhost:3000/api/appointments",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       const mapped = res.data.appointments.map((app) => {
-
-        const dateTime = new Date(
-          `${app.appointmentDate}T${app.appointmentTime}`
-        );
-
+        const dateTime = new Date(`${app.appointmentDate}T${app.appointmentTime}`);
         const now = new Date();
 
         return {
           id: app.id,
-
           doctor: app.professional?.name || "Doctor",
-
           role: app.professional?.specialization || "",
-
-          image:
-            app.professional?.image ||
-            "/images/profileimage.png",
-
-          location:
-            app.professional?.location ||
-            "Online / Physical",
-
+          image: app.professional?.image || "/images/profileimage.png",
+          location: app.professional?.location || "Online / Physical",
           date: dateTime.getDate(),
-
-          month: dateTime
-            .toLocaleString("default", { month: "short" })
-            .toUpperCase(),
-
-          time: dateTime.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit"
-          }),
-
+          month: dateTime.toLocaleString("default", { month: "short" }).toUpperCase(),
+          time: dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
           status: app.status || "Pending",
-
-          type:
-            dateTime.getTime() < now.getTime()
-              ? "past"
-              : "scheduled"
+          type: dateTime.getTime() < now.getTime() ? "past" : "scheduled"
         };
       });
 
       setAppointments(mapped);
-
     } catch (err) {
       console.error("Fetch appointment error:", err);
     }
   };
 
-  /* Auto refresh database every 5 seconds */
   useEffect(() => {
-
     fetchAppointments();
-
-    const interval = setInterval(() => {
-      fetchAppointments();
-    }, 5000);
-
+    const interval = setInterval(() => { fetchAppointments(); }, 5000);
     return () => clearInterval(interval);
-
   }, []);
 
-  const filtered = appointments.filter(
-    (app) => app.type === activeTab
-  );
+  const handleCancel = async (id) => {
+    if (!window.confirm("Are you sure you want to cancel this appointment?")) return;
+    try {
+      await axios.patch(
+        `http://localhost:3000/api/appointments/${id}/cancel`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setAppointments(prev =>
+        prev.map(a => a.id === id ? { ...a, status: "Cancelled" } : a)
+      );
+    } catch (err) {
+      console.error(err);
+      alert("Failed to cancel appointment");
+    }
+  };
+
+  const getImageSrc = (image) => {
+    if (!image) return "/images/profileimage.png";
+    if (image.startsWith("http")) return image;
+    return `http://localhost:3000${image}`;
+  };
+
+  const filtered = appointments.filter((app) => app.type === activeTab);
 
   return (
     <div className="calmMindPage">
       <DashboardNavbar />
 
       <section className="calmHero">
-        <p className="calmHeroSubtitle">
-          Track your sessions
-        </p>
+        <p className="calmHeroSubtitle">Track your sessions</p>
       </section>
 
       <div className="calmContainer">
         <div className="calmTabs">
           <button
-            className={`calmTab ${
-              activeTab === "scheduled" ? "active" : ""
-            }`}
+            className={`calmTab ${activeTab === "scheduled" ? "active" : ""}`}
             onClick={() => setActiveTab("scheduled")}
           >
             Upcoming Sessions
             <span className="countBadge">
-              {
-                appointments.filter(
-                  (a) => a.type === "scheduled"
-                ).length
-              }
+              {appointments.filter((a) => a.type === "scheduled").length}
             </span>
           </button>
 
           <button
-            className={`calmTab ${
-              activeTab === "past" ? "active" : ""
-            }`}
+            className={`calmTab ${activeTab === "past" ? "active" : ""}`}
             onClick={() => setActiveTab("past")}
           >
             Past Sessions
@@ -132,27 +105,20 @@ const CalmMind = () => {
             filtered.map((app) => (
               <div className="appointmentCard" key={app.id}>
                 <div className="dateSquare">
-                  <span className="dateDay">
-                    {app.date}
-                  </span>
-                  <span className="dateMonth">
-                    {app.month}
-                  </span>
+                  <span className="dateDay">{app.date}</span>
+                  <span className="dateMonth">{app.month}</span>
                 </div>
 
                 <div className="doctorInfo">
                   <div className="doctorHeader">
                     <img
-                      src={app.image}
+                      src={getImageSrc(app.image)}
                       alt={app.doctor}
                       className="miniAvatar"
                     />
-
                     <div>
                       <h3>{app.doctor}</h3>
-                      <p className="doctorRole">
-                        {app.role}
-                      </p>
+                      <p className="doctorRole">{app.role}</p>
                     </div>
                   </div>
 
@@ -162,10 +128,19 @@ const CalmMind = () => {
                   </div>
                 </div>
 
-                <div
-                  className={`statusTag ${app.status.toLowerCase()}`}
-                >
-                  {app.status}
+                <div className="cardRight">
+                  <div className={`statusTag ${app.status.toLowerCase()}`}>
+                    {app.status}
+                  </div>
+
+                  {activeTab === "scheduled" && app.status !== "Cancelled" && (
+                    <button
+                      className="cancelAppointmentBtn"
+                      onClick={() => handleCancel(app.id)}
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </div>
               </div>
             ))
@@ -177,7 +152,7 @@ const CalmMind = () => {
         </div>
       </div>
 
-      <Footer />   {/* ✅ Footer Added Here */}
+      <Footer />
     </div>
   );
 };

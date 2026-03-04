@@ -22,10 +22,7 @@ const Register = () => {
 
   const onRegisterClick = async (data) => {
     try {
-      console.log("Submitting register data:", data); // optional debug
-
       const res = await apiCall("POST", "/users", data);
-      console.log("Backend response:", res); // optional debug
 
       if (res.success) {
         alert("Registration successful! Please log in.");
@@ -48,29 +45,43 @@ const Register = () => {
           <p className="registerSubtitle">Join Serenity Hub today</p>
 
           <form className="registerForm" onSubmit={handleSubmit(onRegisterClick)}>
-            <input type="text" placeholder="Name" {...register("name")} />
-            {errors.name && <p className="errorMsg">{errors.name.message}</p>}
 
-            <input type="text" placeholder="Username" {...register("username")} />
-            {errors.username && <p className="errorMsg">{errors.username.message}</p>}
+            <div className="inputGroup">
+              <input type="text" placeholder="Full Name" {...register("name")} />
+              {errors.name && <p className="errorMsg">⚠ {errors.name.message}</p>}
+            </div>
 
-            <input type="email" placeholder="Email Address" {...register("email")} />
-            {errors.email && <p className="errorMsg">{errors.email.message}</p>}
+            <div className="inputGroup">
+              <input type="text" placeholder="Username" {...register("username")} />
+              {errors.username && <p className="errorMsg">⚠ {errors.username.message}</p>}
+            </div>
 
-            <input type="text" placeholder="Phone Number" {...register("phone")} />
-            {errors.phone && <p className="errorMsg">{errors.phone.message}</p>}
+            <div className="inputGroup">
+              <input type="email" placeholder="Email Address" {...register("email")} />
+              {errors.email && <p className="errorMsg">⚠ {errors.email.message}</p>}
+            </div>
 
-            <input type="password" placeholder="Password" {...register("password")} />
-            {errors.password && <p className="errorMsg">{errors.password.message}</p>}
+            <div className="inputGroup">
+              <input type="text" placeholder="Phone Number" {...register("phone")} />
+              {errors.phone && <p className="errorMsg">⚠ {errors.phone.message}</p>}
+            </div>
 
-            <input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />
-            {errors.confirmPassword && <p className="errorMsg">{errors.confirmPassword.message}</p>}
+            <div className="inputGroup">
+              <input type="password" placeholder="Password" {...register("password")} />
+              {errors.password && <p className="errorMsg">⚠ {errors.password.message}</p>}
+            </div>
 
-            <div className="termsWrapper">
-              <label>
-                <input type="checkbox" {...register("terms")} /> I agree to the terms and conditions
+            <div className="inputGroup">
+              <input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />
+              {errors.confirmPassword && <p className="errorMsg">⚠ {errors.confirmPassword.message}</p>}
+            </div>
+
+            <div className="inputGroup">
+              <label className="termsLabel">
+                <input type="checkbox" {...register("terms")} />
+                <span>I agree to the terms and conditions</span>
               </label>
-              {errors.terms && <p className="errorMsg">{errors.terms.message}</p>}
+              {errors.terms && <p className="errorMsg">⚠ {errors.terms.message}</p>}
             </div>
 
             <button type="submit" className="registerBtn">Register</button>

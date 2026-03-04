@@ -1,41 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/DashboardNavbar.css";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
   };
 
+  const handleNav = (path) => {
+    navigate(path);
+    setMenuOpen(false);
+  };
+
   return (
-    <nav className="dashboardNav">
-      <div
-        className="dashboardNavLogo"
-        onClick={() => navigate("/dashboard")}
-      >
-        Serenity Hub
-      </div>
+    <>
+      <nav className="dashboardNav">
+        <div className="dashboardNavLogo" onClick={() => handleNav("/dashboard")}>
+          Serenity Hub
+        </div>
 
-      <ul className="dashboardNavLinks">
-        <li onClick={() => navigate("/dashboard")}>Dashboard</li>
-        <li onClick={() => navigate("/professionals")}>Professionals</li>
-        <li onClick={() => navigate("/calm-mind")}>Calm Mind</li>
-      </ul>
-
-      {/* RIGHT SIDE ACTIONS */}
-      <div className="dashboardNavActions">
         <ul className="dashboardNavLinks">
-          <li onClick={() => navigate("/profile")}>Profile</li>
+          <li onClick={() => handleNav("/dashboard")}>Dashboard</li>
+          <li onClick={() => handleNav("/professionals")}>Professionals</li>
+          <li onClick={() => handleNav("/calm-mind")}>Calm Mind</li>
+          <li onClick={() => handleNav("/profile")}>Profile</li>
         </ul>
 
-        <button className="logoutBtn" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-    </nav>
+        <div className="dashboardNavActions">
+          <button className="logoutBtn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+
+        {/* Hamburger */}
+        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+
+      {/* Mobile Dropdown */}
+      <ul className={`mobileMenu ${menuOpen ? "open" : ""}`}>
+        <li onClick={() => handleNav("/dashboard")}>Dashboard</li>
+        <li onClick={() => handleNav("/professionals")}>Professionals</li>
+        <li onClick={() => handleNav("/calm-mind")}>Calm Mind</li>
+        <li onClick={() => handleNav("/profile")}>Profile</li>
+        <li>
+          <button className="logoutBtn" onClick={handleLogout}>
+            Logout
+          </button>
+        </li>
+      </ul>
+    </>
   );
 };
 

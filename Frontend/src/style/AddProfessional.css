@@ -5,14 +5,12 @@
   font-family: "Poppins", sans-serif;
   background: #f9fafc;
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* Title */
 .addProfessionalContainer h2 {
   font-size: 28px;
   font-weight: 700;
@@ -20,7 +18,6 @@
   margin-bottom: 30px;
 }
 
-/* Form Box (width preserved) */
 .addProfessionalForm {
   width: 600px;
   max-width: 100%;
@@ -28,13 +25,11 @@
   padding: 35px;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(11, 78, 195, 0.12);
-
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* Inputs */
 .addProfessionalForm input,
 .addProfessionalForm textarea {
   width: 100%;
@@ -57,20 +52,39 @@
   border-color: #0b4ec3;
 }
 
-/* Normal small blue button */
-.addProfessionalForm button {
-  align-self: flex-start;
+/* Hide the default file input */
+.addProfessionalForm input[type="file"] {
+  display: none;
+}
 
+/* Custom file upload button */
+.fileUploadLabel {
+  display: inline-block;
   background: #1e90ff;
   color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: 0.25s ease;
+  text-align: center;
+}
 
+.fileUploadLabel:hover {
+  background: #0b75d1;
+}
+
+.addProfessionalForm button {
+  align-self: flex-start;
+  background: #1e90ff;
+  color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
-
   font-size: 13px;
   font-weight: 500;
-
   cursor: pointer;
   transition: 0.25s ease;
 }
@@ -79,12 +93,16 @@
   background: #0b75d1;
 }
 
-/* Mobile */
+.errorText {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: -10px;
+}
+
 @media (max-width: 768px) {
   .addProfessionalContainer {
     padding: 40px 20px;
   }
-
   .addProfessionalForm {
     padding: 25px;
   }
