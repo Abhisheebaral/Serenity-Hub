@@ -139,7 +139,13 @@ export const deleteProfessional = async (req, res) => {
     const { id } = req.params;
     const professional = await Professionals.findByPk(id);
     if (!professional) return res.status(404).json({ success: false, message: "Professional not found" });
+
+    // Step 1: Delete related appointments first
+    await Appointments.destroy({ where: { professionalId: id } });
+
+    // Step 2: Now delete the professional
     await Professionals.destroy({ where: { id } });
+
     res.json({ success: true, message: "Professional deleted successfully" });
   } catch (err) {
     console.error(err);
