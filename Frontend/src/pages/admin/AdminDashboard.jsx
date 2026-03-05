@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNav from "../../components/AdminNav";
-import { Users, CalendarCheck, TrendingUp } from "lucide-react";
+import { Users, CalendarCheck } from "lucide-react";
 import "../../style/AdminDashboard.css";
 
 const AdminDashboard = () => {
@@ -95,11 +95,6 @@ const AdminDashboard = () => {
           <CalendarCheck className="statIcon purple" />
           <p className="statLabel">Appointments Today</p>
           <h2>{stats.todayAppointments}</h2>
-        </div>
-        <div className="statCard">
-          <TrendingUp className="statIcon orange" />
-          <p className="statLabel">Active Users</p>
-          <h2>{stats.activeUsers}</h2>
         </div>
       </div>
     );

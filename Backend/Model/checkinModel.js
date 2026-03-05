@@ -11,7 +11,7 @@ export const DailyCheckin = sequelize.define(
       primaryKey: true,
     },
 
-    customerId: {               // ✅ explicitly define FK
+    customerId: {               
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

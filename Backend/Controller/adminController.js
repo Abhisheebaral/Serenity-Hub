@@ -1,25 +1,23 @@
 import { DailyCheckin } from "../Model/checkinModel.js";
 import { Customers } from "../Model/userModel.js";
 import { Appointments } from "../Model/appointmentModel.js";
-import { Sequelize } from "sequelize";
+import { Sequelize, Op } from "sequelize";
 import { Professionals } from "../Model/professionalModel.js";
 
 export const getDashboardStats = async (req, res) => {
   try {
     const totalCustomers = await Customers.count();
     const today = new Date().toISOString().split("T")[0];
+
     const todayAppointments = await Appointments.count({
       where: { appointmentDate: today },
     });
-    const activeUsers = await DailyCheckin.count({
-      where: { date: today },
-      distinct: true,
-      col: "customerId",
-    });
+
     const pendingAppointments = await Appointments.count({
-      where: { appointmentDate: { [Sequelize.Op.gt]: today } },
+      where: { appointmentDate: { [Op.gt]: today } },
     });
-    res.json({ totalCustomers, todayAppointments, activeUsers, pendingAppointments });
+
+    res.json({ totalCustomers, todayAppointments, pendingAppointments });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
@@ -149,7 +147,6 @@ export const deleteProfessional = async (req, res) => {
   }
 };
 
-// ✅ NEW - Get user checkin history
 export const getUserCheckins = async (req, res) => {
   try {
     const { id } = req.params;
